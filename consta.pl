@@ -340,7 +340,7 @@ existsConnection(C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									LineDifference=1.
 
 existsConnection(C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
-									getPiece(I, X2, Y2, Elem2),
+									getPiece(I, X2, Y2, Elem2), 
 									Elem1=Elem2,
 									X1=X2,
 									ColumnDifference is abs(Y1-Y2),
@@ -419,6 +419,11 @@ existsConnection(C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I,X4,Y4,Elem4),
 									Elem1\=Elem3, Elem1\=Elem4.
 									
+								
+
+	   
+							
+		
 /*								
 existsCycle(X,Y,B,C,I,P,Jogador):- X>0, Y>0, X<9, Y<9,
 								   copy(B,B2), copy(C,C2), copy(I,I2),
@@ -461,12 +466,92 @@ travelPiece(X,Y,C,I,List):-
 */									 
 empty([]).
 pop(E, [E|Es],Es).
-push(E, Es, [E|Es]).							
+push(E, Es, [E|Es]).
 
+/* Graph Stuff */
+connected(X,Y) :- edge(X,Y).
+connected(X,Y) :- edge(Y,X).
 
-replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):- write('You cannot put that piece there!'), nl, stroke(B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY).
+path(A,B,Path) :-
+       travel(A,B,[A],Q), 
+       reverse(Q,Path).
+
+travel(A,B,P,[B|P]) :- 
+       connected(A,B).
+travel(A,B,Visited,Path) :-
+       connected(A,C),           
+       C \== B,
+       \+member(C,Visited),
+       travel(C,B,[C|Visited],Path). 
+	   
+	   
+/*Generates all Combinations Given a List and N*/
+combination(0, _, []) :- 
+    !.
+combination(N, L, [V|R]) :-
+    N > 0,
+    NN is N - 1,
+    unknown(V, L, Rem),
+    combination(NN, Rem, R).
+
+unknown(X,[X|L],L).
+unknown(X,[_|L],R) :- 
+    unknown(X,L,R).
+	
+/*findall(L, combination(2,[a,b,c,d],L), R).*/
+
+/*Auxiliar Lists*/
+
+list_pairs(List1, List2, Pairs) :-
+    findall([X,Y], (member(X, List1), member(Y, List2)), Pairs).
+
+allCords([ 
+			[0,0], [0,1], [0,2], [0,3], [0,4],[0,5],[0,6],[0,7],[0,8],[0,9],
+			[1,0], [1,1], [1,2], [1,3], [1,4],[1,5],[1,6],[1,7],[1,8],[1,9],
+			[2,0], [2,1], [2,2], [2,3], [2,4],[2,5],[2,6],[2,7],[2,8],[2,9],
+			[3,0], [3,1], [3,2], [3,3], [3,4],[3,5],[3,6],[3,7],[3,8],[3,9],
+			[4,0], [4,1], [4,2], [4,3], [4,4],[4,5],[4,6],[4,7],[4,8],[4,9],
+			[5,0], [5,1], [5,2], [5,3], [5,4],[5,5],[5,6],[5,7],[5,8],[5,9],
+			[6,0], [6,1], [6,2], [6,3], [6,4],[6,5],[6,6],[6,7],[6,8],[6,9],
+			[7,0], [7,1], [7,2], [7,3], [7,4],[7,5],[7,6],[7,7],[7,8],[7,9],
+			[8,0], [8,1], [8,2], [8,3], [8,4],[8,5],[8,6],[8,7],[8,8],[8,9],
+			[9,0], [9,1], [9,2], [9,3], [9,4],[9,5],[9,6],[9,7],[9,8],[9,9]
+			]).
+			
+blackCoordsTop([[0,0], [0,1], [0,2], [0,3], [0,4],[0,5],[0,6],[0,7],[0,8],[0,9]]).
+blackCoordsBottom([[9,0], [9,1], [9,2], [9,3], [9,4],[9,5],[9,6],[9,7],[9,8],[9,9]]).
+
+whiteCoordsLeft([[0,0], [1,0], [2,0], [3,0], [4,0],[5,0],[6,0],[7,0],[8,0],[9,0]]).
+whiteCoordsRight([[0,1], [1,9], [2,9], [3,9], [4,9],[5,9],[6,9],[7,9],[8,9],[9,9]]).
+
 
 /*-------------*/
+
+buildEdges(B,C,I,Jogador,Counter,ResultList):- 
+												Counter=<4949,
+												nth0(Counter,ResultList,Pair),
+												nth0(0,Pair,Point1), nth0(1,Pair,Point2),
+												nth0(0,Point1,P1x), nth0(1,Point1, P1y),
+												nth0(0,Point2,P2x), nth0(1,Point2, P2y), 
+												if_then_else(existsConnection(C,I,P1x,P1y,P2x,P2y), assert(edge(Point1,Point2)), write('')),
+												NewCounter is Counter+1,
+												buildEdges(B,C,I,Jogador,NewCounter,ResultList).
+												
+												
+												
+									
+									
+									
+									
+
+victory(B,C,I,Jogador):- Jogador==1,
+						allCords(ListCoords),
+						findall(L, combination(2,ListCoords,L), ResultList),
+						if_then_else(buildEdges(B,C,I,Jogador,0,ResultList), write(''), write('')),
+						write('Edges Built!!!!'),
+						path([0,0],[0,1],Path), nl,write(Path), nl.
+							
+							
 
 			
 initialBoard([	[' ',' ',' ',' ',' ',' ',' ',' ',' ',' '],
@@ -510,6 +595,7 @@ identityBoard([	[0,0,0,0,0,0,0,0,0,0],
 
 startGame:- use_module(library(lists)), initialBoard(B), countingBoard(C), identityBoard(I), showBoard(B), stroke(B,C,I,1,1,1,0,0,0).
 
+replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):- write('You cannot put that piece there!'), nl, stroke(B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY).
 
 verify1(C,I,X,Y,Jogador,Move,NewBool):- fullCrossCut(C,I,X,Y,Jogador,Move,Boolean), 
 									NewBool is Boolean,
@@ -534,7 +620,7 @@ verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Bool==1, Move==2,
 
 
 stroke(B,C,I,Jogador, Counter, Move, Bool, LASTX, LASTY):-
-								Counter < 15, write('Player '), write(Jogador), write(' it is your turn!'), nl,
+								Counter < 100, write('Player '), write(Jogador), write(' it is your turn!'), nl,
 								write('Line: '), nl, read(X), nl, 
 								write('Column: '), nl, read(Y), nl, 
 								write('Piece: '), nl, read(P), nl, 
@@ -563,6 +649,7 @@ putPiece(B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LASTX,LASTY):-
 								if_then_else(Move==1, NewMove is Move+1, write('')),
 								if_then_else(Move==1, stroke(R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
 
+								victory(B,NewCountingBoard,NewIdentityBoard,Jogador),
 		
 								stroke(R,NewCountingBoard,NewIdentityBoard, 2, Counter, 1, 0, LASTX,LASTY). 
 										
