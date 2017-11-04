@@ -332,22 +332,25 @@ is_true(or(A,B)):- or(A,B).
 
 /*Check if there is connection between two pieces on Board (ortogonally or diagonaly)*/
 
-existsConnection(C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
+existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I, X2, Y2, Elem2),
+									Elem1=Jogador,
 									Elem1=Elem2,
 									Y1=Y2,
 									LineDifference is abs(X1-X2),
 									LineDifference=1.
 
-existsConnection(C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
+existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I, X2, Y2, Elem2), 
+									Elem1=Jogador,
 									Elem1=Elem2,
 									X1=X2,
 									ColumnDifference is abs(Y1-Y2),
 									ColumnDifference=1.
 
-existsConnection(C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
+existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I, X2, Y2, Elem2),
+									Elem1=Jogador,
 									Elem1=Elem2,
 									ColumnDifference is Y2-Y1,
 									ColumnDifference=1,
@@ -364,8 +367,9 @@ existsConnection(C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I,X4,Y4,Elem4),
 									Elem1\=Elem3, Elem1\=Elem4.
 									
-existsConnection(C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
+existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I, X2, Y2, Elem2),
+									Elem1=Jogador,
 									Elem1=Elem2,
 									ColumnDifference is Y1-Y2,
 									ColumnDifference=1,
@@ -383,8 +387,9 @@ existsConnection(C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									Elem1\=Elem3, Elem1\=Elem4.
 									
 
-existsConnection(C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
+existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I, X2, Y2, Elem2),
+									Elem1=Jogador,
 									Elem1=Elem2,
 									ColumnDifference is Y1-Y2,
 									ColumnDifference=1,
@@ -401,8 +406,9 @@ existsConnection(C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I,X4,Y4,Elem4),
 									Elem1\=Elem3, Elem1\=Elem4.
 									
-existsConnection(C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
+existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I, X2, Y2, Elem2),
+									Elem1=Jogador,
 									Elem1=Elem2,
 									ColumnDifference is Y2-Y1,
 									ColumnDifference=1,
@@ -525,31 +531,46 @@ whiteCoordsLeft([[0,0], [1,0], [2,0], [3,0], [4,0],[5,0],[6,0],[7,0],[8,0],[9,0]
 whiteCoordsRight([[0,1], [1,9], [2,9], [3,9], [4,9],[5,9],[6,9],[7,9],[8,9],[9,9]]).
 
 
+
 /*-------------*/
 
-buildEdges(B,C,I,Jogador,Counter,ResultList):- 
-												Counter=<4949,
-												nth0(Counter,ResultList,Pair),
-												nth0(0,Pair,Point1), nth0(1,Pair,Point2),
-												nth0(0,Point1,P1x), nth0(1,Point1, P1y),
-												nth0(0,Point2,P2x), nth0(1,Point2, P2y), 
-												if_then_else(existsConnection(C,I,P1x,P1y,P2x,P2y), assert(edge(Point1,Point2)), write('')),
-												NewCounter is Counter+1,
-												buildEdges(B,C,I,Jogador,NewCounter,ResultList).
+searchVertiCally(ResultList,Counter):-
+						Counter=<99,
+						nth0(Counter,ResultList,Pair),
+						nth0(0,Pair,Point1), nth0(1,Pair,Point2),
+						if_then_else(path(Point1,Point2,Path), write(Path), write('')), nl,
+						NewCounter is Counter+1,
+						searchVertiCally(ResultList,NewCounter).
+
+
+createsEdge(Point1,Point2,Flag):- assert(edge(Point1,Point2)), Flag is 1.
+
+buildEdges(B,C,I,Jogador,Counter,ResultList,Flag):- 
+						Counter=<4949,
+						nth0(Counter,ResultList,Pair),
+						nth0(0,Pair,Point1), nth0(1,Pair,Point2),
+						nth0(0,Point1,P1x), nth0(1,Point1, P1y),
+						nth0(0,Point2,P2x), nth0(1,Point2, P2y), 
+						if_then_else(existsConnection(Jogador,C,I,P1x,P1y,P2x,P2y), createsEdge(Point1,Point2,Flag), write('')),
+						NewCounter is Counter+1,
+						buildEdges(B,C,I,Jogador,NewCounter,ResultList,Flag).
 												
-												
-												
-									
-									
-									
-									
+		
+findPaths(Jogador):- Jogador==1,
+			blackCoordsTop(List1), blackCoordsBottom(List2),
+			list_pairs(List1,List2, Pairs),
+			write(Pairs),nl,
+			if_then_else(searchVertiCally(Pairs,0),write(''),write('')).
+			
+			
 
 victory(B,C,I,Jogador):- Jogador==1,
 						allCords(ListCoords),
 						findall(L, combination(2,ListCoords,L), ResultList),
-						if_then_else(buildEdges(B,C,I,Jogador,0,ResultList), write(''), write('')),
-						write('Edges Built!!!!'),
-						path([0,0],[0,1],Path), nl,write(Path), nl.
+						if_then_else(buildEdges(B,C,I,Jogador,0,ResultList,Flag), write(''), write('')),
+						if_then_else(findPaths(Jogador), write(''),write('')),
+						if_then_else(Flag=1, retractall(edge(X,Y)), write('')).
+						
 							
 							
 
@@ -649,7 +670,7 @@ putPiece(B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LASTX,LASTY):-
 								if_then_else(Move==1, NewMove is Move+1, write('')),
 								if_then_else(Move==1, stroke(R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
 
-								victory(B,NewCountingBoard,NewIdentityBoard,Jogador),
+								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
 		
 								stroke(R,NewCountingBoard,NewIdentityBoard, 2, Counter, 1, 0, LASTX,LASTY). 
 										
