@@ -2,7 +2,82 @@
 /*These Functions are responsible to check if it is possible to place a Black Piece 
 considering all possible cases of Crosscut*/
 
+verifyCases(Count1,Count2,Count3,Count4,Bool1) :- Count1 = 0, Count2 = 1, Bool1 is 1.
+verifyCases(Count1,Count2,Count3,Count4,Bool1) :- Count1 = 0, Count2 = 2, Bool1 is 2.
+verifyCases(Count1,Count2,Count3,Count4,Bool1) :- Count1 = 1, Count2 = 2, Bool1 is 3.
+verifyCases(Count1,Count2,Count3,Count4,Bool1) :- Count1 = 1, Count2 = 1, Bool1 is 4.
 
+
+
+fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   X1>=0, X1=<9, Y1>=0, Y1=<9,
+										   getPiece(I,X1,Y1,Elem1),if_then_else(Elem1>0, Elem1=Jogador, write('')),
+										   X2 is X1-1, Y2 is Y1+1, getPiece(I,X2,Y2,Elem2), Elem2 = Jogador,
+										   X3 is X1, Y3 is Y2, getPiece(I,X3,Y3,Elem3), Elem3 \= 0, Elem3 \= Jogador,
+										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= Jogador,
+										   getPiece(C,X1,Y1,Count1), getPiece(C,X2,Y2,Count2), getPiece(C,X3,Y3,Count3), getPiece(C,X4,Y4,Count4),
+										   Sum1 is Count1+Count2, Sum2 is Count3+Count4,
+										   Dif is Sum2-Sum1,
+										   Dif=1,
+										   verifyCases(Count1,Count2,Count3,Count4,Bool1),
+										   if_then_else(Bool1=1, Bool is 11, write('')),
+										   if_then_else(Bool1=2, Bool is 21, write('')),
+										   if_then_else(Bool1=3, Bool is 31, write('')),
+										   if_then_else(Bool1=4, Bool is 41, write('')).
+										   
+										   
+fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   X1>=0, X1=<9, Y1>=0, Y1=<9,
+										   getPiece(I,X1,Y1,Elem1), if_then_else(Elem1>0, Elem1=Jogador, write('')),
+										   X2 is X1-1, Y2 is Y1-1, getPiece(I,X2,Y2,Elem2), Elem2 = Jogador,
+										   X3 is X1, Y3 is Y2, getPiece(I,X3,Y3,Elem3),Elem3 \= 0, Elem3 \= Jogador,
+										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= Jogador,
+										   getPiece(C,X1,Y1,Count1), getPiece(C,X2,Y2,Count2), getPiece(C,X3,Y3,Count3), getPiece(C,X4,Y4,Count4),
+										   Sum1 is Count1+Count2, Sum2 is Count3+Count4,
+										   Dif is Sum2-Sum1,
+										   Dif=1,
+										   verifyCases(Count1,Count2,Count3,Count4,Bool1),
+										   if_then_else(Bool1=1, Bool is 12, write('')),
+										   if_then_else(Bool1=2, Bool is 22, write('')),
+										   if_then_else(Bool1=3, Bool is 32, write('')),
+										   if_then_else(Bool1=4, Bool is 42, write('')).
+										   
+										   
+fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   X1>=0, X1=<9, Y1>=0, Y1=<9,
+										   getPiece(I,X1,Y1,Elem1),if_then_else(Elem1>0, Elem1=Jogador, write('')),
+										   X2 is X1+1, Y2 is Y1-1, getPiece(I,X2,Y2,Elem2), Elem2 = Jogador,
+										   X3 is X1, Y3 is Y2, getPiece(I,X3,Y3,Elem3),Elem3 \= 0, Elem3 \= Jogador,
+										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= Jogador,
+										   getPiece(C,X1,Y1,Count1), getPiece(C,X2,Y2,Count2), getPiece(C,X3,Y3,Count3), getPiece(C,X4,Y4,Count4),
+										   Sum1 is Count1+Count2, Sum2 is Count3+Count4,
+										   Dif is Sum2-Sum1,
+										   Dif=1,
+										   verifyCases(Count1,Count2,Count3,Count4,Bool1),
+										   if_then_else(Bool1=1, Bool is 13, write('')),
+										   if_then_else(Bool1=2, Bool is 23, write('')),
+										   if_then_else(Bool1=3, Bool is 33, write('')),
+										   if_then_else(Bool1=4, Bool is 43, write('')).
+										   
+										   
+fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   
+											X1>=0, X1=<9, Y1>=0, Y1=<9,
+										   getPiece(I,X1,Y1,Elem1), if_then_else(Elem1>0, Elem1=Jogador, write('')),
+										   X2 is X1+1, Y2 is Y1+1, getPiece(I,X2,Y2,Elem2), Elem2 = Jogador,
+										   X3 is X1, Y3 is Y2, getPiece(I,X3,Y3,Elem3),Elem3 \= 0, Elem3 \= Jogador,
+										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= Jogador,
+										   getPiece(C,X1,Y1,Count1), getPiece(C,X2,Y2,Count2), getPiece(C,X3,Y3,Count3), getPiece(C,X4,Y4,Count4),
+										   Sum1 is Count1+Count2, Sum2 is Count3+Count4,
+										   Dif is Sum2-Sum1,
+										   Dif=1,
+										   verifyCases(Count1,Count2,Count3,Count4,Bool1),
+										   if_then_else(Bool1=1, Bool is 14, write('')),
+										   if_then_else(Bool1=2, Bool is 24, write('')),
+										   if_then_else(Bool1=3, Bool is 34, write('')),
+										   if_then_else(Bool1=4, Bool is 44, write('')).
+
+
+
+
+
+/*
 fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
 							 getPiece(I,X,Y,Elem), Elem = 1,
 							 NY is Y-1,
@@ -13,9 +88,10 @@ fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
 							 getPiece(I,NX2,NY2,Elem3), Elem3 = 1,
 							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
 							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							FINALval is VALUE1-VALUE2,
-							FINALval=1, 
+							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
+							 FINALval is VALUE1-VALUE2,
+							 FINALval=1, 
+							 if_then_else(Move=2, Bool is 0, Bool is 1),
 							 Bool is 0.
 							
 fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
@@ -29,9 +105,9 @@ fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
 							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
 							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
 							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							FINALval is VALUE1-VALUE2,
-							FINALval=1,
-							Bool is 1.
+							 FINALval is VALUE1-VALUE2,
+							 FINALval=1,
+							 Bool is 1.
 							 
 
 fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
@@ -128,9 +204,7 @@ fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
 							 
 
 
-
-/*These Functions are responsible to check if it is possible to place a White Piece 
-considering all possible cases of Crosscut*/
+´
 
 
 
@@ -259,6 +333,7 @@ fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 2, X>=0, X=<9, Y>=0, Y=<9,
 							 FINALval=1,
 							 Bool is 1.							 
 
+							*/
 /*Get Stuff*/
 getPeca(Tabuleiro, Nlinha, NCol, Peca) :-
 	getElePos(NLinha, Tabuleiro, Linha),
@@ -331,6 +406,15 @@ is_true(or(A,B)):- or(A,B).
 
 
 /*Check if there is connection between two pieces on Board (ortogonally or diagonaly)*/
+									
+verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=0, Elem4=0.
+verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=Jogador, Elem4\=0, Elem4\=Jogador.
+verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3\=0, Elem3\=Jogador, Elem4=Jogador.
+verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=Jogador, Elem4=Jogador.
+verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=0, Elem4=Jogador.
+verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=Jogador, Elem4=0.
+verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=0, Elem4\=0, Elem4\=Jogador.
+verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3\=0, Elem3\=Jogador, Elem4=0.							
 
 existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I, X2, Y2, Elem2),
@@ -347,6 +431,7 @@ existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									X1=X2,
 									ColumnDifference is abs(Y1-Y2),
 									ColumnDifference=1.
+									
 
 existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I, X2, Y2, Elem2),
@@ -425,51 +510,79 @@ existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I,X4,Y4,Elem4),
 									Elem1\=Elem3, Elem1\=Elem4.
 									
-								
+
+
+
+
+
+
+
+
+
+existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
+									getPiece(I, X2, Y2, Elem2),
+									Elem1=Jogador,
+									Elem1=Elem2,
+									ColumnDifference is Y2-Y1,
+									ColumnDifference=1,
+									LineDifference is X1-X2,
+									LineDifference=1,
+									X3 is X1, Y3 is Y2,			
+									X4 is X2, Y4 is Y1,
+									getPiece(I,X3,Y3,Elem3),
+									getPiece(I,X4,Y4,Elem4),
+									Elem1\=Elem3, Elem1\=Elem4,
+									verifythisCases(Elem1,Elem2,Elem3,Elem4).
+									
+existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
+									getPiece(I, X2, Y2, Elem2),
+									Elem1=Jogador,
+									Elem1=Elem2,
+									ColumnDifference is Y1-Y2,
+									ColumnDifference=1,
+									LineDifference is X1-X2,
+									LineDifference=1,
+									X3 is X1, Y3 is Y2,
+									X4 is X2, Y4 is Y1,
+									getPiece(I,X3,Y3,Elem3),
+									getPiece(I,X4,Y4,Elem4),
+									Elem1\=Elem3, Elem1\=Elem4,
+									verifythisCases(Elem1,Elem2,Elem3,Elem4).
+									
+
+existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
+									getPiece(I, X2, Y2, Elem2),
+									Elem1=Jogador,
+									Elem1=Elem2,
+									ColumnDifference is Y1-Y2,
+									ColumnDifference=1,
+									LineDifference is X2-X1,
+									LineDifference=1,
+									X3 is X1, Y3 is Y2,
+									X4 is X2, Y4 is Y1,
+									getPiece(I,X3,Y3,Elem3),
+									getPiece(I,X4,Y4,Elem4),
+									Elem1\=Elem3, Elem1\=Elem4,
+									verifythisCases(Elem1,Elem2,Elem3,Elem4).
+									
+existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
+									getPiece(I, X2, Y2, Elem2),
+									Elem1=Jogador,
+									Elem1=Elem2,
+									ColumnDifference is Y2-Y1,
+									ColumnDifference=1,
+									LineDifference is X2-X1,
+									LineDifference=1,
+									X3 is X1, Y3 is Y2,
+									X4 is X2, Y4 is Y1,
+									getPiece(I,X3,Y3,Elem3),
+									getPiece(I,X4,Y4,Elem4),
+									Elem1\=Elem3, Elem1\=Elem4,
+									verifythisCases(Elem1,Elem2,Elem3,Elem4).									
 
 	   
 							
-		
-/*								
-existsCycle(X,Y,B,C,I,P,Jogador):- X>0, Y>0, X<9, Y<9,
-								   copy(B,B2), copy(C,C2), copy(I,I2),
-								   getPiece(B,X,Y,Elem),
-								   if_then_else(Elem='w', setPiece(B2, X, Y, 'W', R), setPiece(B2, X, Y, P, R)),
-								   setCounting(C2,X,Y,NewCountingBoard),
-								   setIdentity(Jogador,I2,X,Y, NewIdentityBoard),
-								   empty(List), push([X,Y],List,NewList),
-								   travelPiece(X,Y,NewCountingBoard,NewIdentityBoard,NewList).
-									
-
-travelPiece(X,Y,C,I,List):- 	
-							PX1 is X, PY1 is Y+1,
-							existsConnection(C,I,X,Y,PX1,PX2),
-							non_member([PX1,PX2],List),
-							push([PX1,PX2],List,NewList),
-							travelPiece(PX1,PY1,C,I,NewList).
-							
-travelPiece(X,Y,C,I,List):- 	
-							PX1 is X-1, PY1 is Y,
-							existsConnection(C,I,X,Y,PX1,PX2),
-							non_member([PX1,PX2],List),
-							push([PX1,PX2],List,NewList),
-							travelPiece(PX1,PY1,C,I,NewList).
-							
-
-travelPiece(X,Y,C,I,List):- 	
-							PX1 is X, PY1 is Y-1,
-							existsConnection(C,I,X,Y,PX1,PX2),
-							non_member([PX1,PX2],List),
-							push([PX1,PX2],List,NewList),
-							travelPiece(PX1,PY1,C,I,NewList).
-							
-travelPiece(X,Y,C,I,List):- 	
-							PX1 is X+1, PY1 is Y,
-							existsConnection(C,I,X,Y,PX1,PX2),
-							non_member([PX1,PX2],List),
-							push([PX1,PX2],List,NewList),
-							travelPiece(PX1,PY1,C,I,NewList).
-*/									 
+							 
 empty([]).
 pop(E, [E|Es],Es).
 push(E, Es, [E|Es]).
@@ -528,17 +641,19 @@ blackCoordsTop([[0,0], [0,1], [0,2], [0,3], [0,4],[0,5],[0,6],[0,7],[0,8],[0,9]]
 blackCoordsBottom([[9,0], [9,1], [9,2], [9,3], [9,4],[9,5],[9,6],[9,7],[9,8],[9,9]]).
 
 whiteCoordsLeft([[0,0], [1,0], [2,0], [3,0], [4,0],[5,0],[6,0],[7,0],[8,0],[9,0]]).
-whiteCoordsRight([[0,1], [1,9], [2,9], [3,9], [4,9],[5,9],[6,9],[7,9],[8,9],[9,9]]).
+whiteCoordsRight([[0,9], [1,9], [2,9], [3,9], [4,9],[5,9],[6,9],[7,9],[8,9],[9,9]]).
 
 
 
 /*-------------*/
 
-searchVertiCally(ResultList,Counter):-
+showPath(Point1,Point2,Path):- if_then_else(path(Point1,Point2,Path), write(Path), write('')), nl.
+
+search(ResultList,Counter,Flag):-
 						Counter=<99,
 						nth0(Counter,ResultList,Pair),
 						nth0(0,Pair,Point1), nth0(1,Pair,Point2),
-						if_then_else(path(Point1,Point2,Path), write(Path), write('')), nl,
+						if_then_else(Flag=1, showPath(Point1,Point2,Path), write('')),
 						NewCounter is Counter+1,
 						searchVertiCally(ResultList,NewCounter).
 
@@ -556,20 +671,27 @@ buildEdges(B,C,I,Jogador,Counter,ResultList,Flag):-
 						buildEdges(B,C,I,Jogador,NewCounter,ResultList,Flag).
 												
 		
-findPaths(Jogador):- Jogador==1,
+findPaths(Jogador,Flag):- Jogador==1,
 			blackCoordsTop(List1), blackCoordsBottom(List2),
 			list_pairs(List1,List2, Pairs),
-			write(Pairs),nl,
-			if_then_else(searchVertiCally(Pairs,0),write(''),write('')).
+			if_then_else(search(Pairs,0,Flag),write(''),write('')).
+			
+			
+findPaths(Jogador,Flag):- Jogador==2,
+			whiteCoordsLeft(List1), whiteCoordsRight(List2),
+			list_pairs(List1,List2, Pairs),
+			if_then_else(search(Pairs,0,Flag),write(''),write('')).
+
 			
 			
 
-victory(B,C,I,Jogador):- Jogador==1,
+victory(B,C,I,Jogador):- 
 						allCords(ListCoords),
 						findall(L, combination(2,ListCoords,L), ResultList),
 						if_then_else(buildEdges(B,C,I,Jogador,0,ResultList,Flag), write(''), write('')),
-						if_then_else(findPaths(Jogador), write(''),write('')),
+						if_then_else(findPaths(Jogador,Flag), write(''),write('')),
 						if_then_else(Flag=1, retractall(edge(X,Y)), write('')).
+	
 						
 							
 							
@@ -617,27 +739,59 @@ identityBoard([	[0,0,0,0,0,0,0,0,0,0],
 startGame:- use_module(library(lists)), initialBoard(B), countingBoard(C), identityBoard(I), showBoard(B), stroke(B,C,I,1,1,1,0,0,0).
 
 replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):- write('You cannot put that piece there!'), nl, stroke(B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY).
+								
 
-verify1(C,I,X,Y,Jogador,Move,NewBool):- fullCrossCut(C,I,X,Y,Jogador,Move,Boolean), 
-									NewBool is Boolean,
-									Move==1, 
-									Boolean==1.
-									
-verify2(C,I,X,Y,Jogador,Move,NewBool):- fullCrossCut(C,I,X,Y,Jogador,Move,Boolean), 
-									 Move==1, 
-									 Boolean==0.
+
 									 
-verify2(C,I,X,Y,Jogador,Move,NewBool):- fullCrossCut(C,I,X,Y,Jogador,Move,Boolean), 
-									 Move==2, 
-									 Boolean==0.
-									
-									 
-verify2(C,I,X,Y,Jogador,Move,NewBool):- fullCrossCut(C,I,X,Y,Jogador,Move,Boolean), 
-									 Move==2, 
-									 Boolean==1.
-									 
-									 
-verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Bool==1, Move==2, X\=LASTX, Y\=LASTY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==11,  X=LASTX, Y=LASTY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==12,  X=LASTX, Y=LASTY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==13,  X=LASTX, Y=LASTY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==14,  X=LASTX, Y=LASTY.
+
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==11, OTHERX is LASTX-1, OTHERY is LASTY+1, X=OTHERX, Y=OTHERY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==12, OTHERX is LASTX-1, OTHERY is LASTY-1, X=OTHERX, Y=OTHERY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==13, OTHERX is LASTX+1, OTHERY is LASTY-1, X=OTHERX, Y=OTHERY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==14, OTHERX is LASTX+1, OTHERY is LASTY+1, X=OTHERX, Y=OTHERY.
+
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==21, OTHERX is LASTX, OTHERY is LASTY, X=LASTX, Y=LASTY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==22, OTHERX is LASTX, OTHERY is LASTY, X=LASTX, Y=LASTY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==23, OTHERX is LASTX, OTHERY is LASTY, X=LASTX, Y=LASTY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==24, OTHERX is LASTX, OTHERY is LASTY, X=LASTX, Y=LASTY.
+
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==21, OTHERX is LASTX, OTHERY is LASTY, X=OTHERX, Y=OTHERY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==22, OTHERX is LASTX, OTHERY is LASTY, X=OTHERX, Y=OTHERY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==23, OTHERX is LASTX, OTHERY is LASTY, X=OTHERX, Y=OTHERY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==24, OTHERX is LASTX, OTHERY is LASTY, X=OTHERX, Y=OTHERY.
+
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==41,  X=LASTX, Y=LASTY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==42,  X=LASTX, Y=LASTY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==43,  X=LASTX, Y=LASTY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==44,  X=LASTX, Y=LASTY.
+
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==41, OTHERX is LASTX-1, OTHERY is LASTY+1, X=OTHERX, Y=OTHERY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==42, OTHERX is LASTX-1, OTHERY is LASTY-1, X=OTHERX, Y=OTHERY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==43, OTHERX is LASTX+1, OTHERY is LASTY-1, X=OTHERX, Y=OTHERY.
+verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==44, OTHERX is LASTX+1, OTHERY is LASTY+1, X=OTHERX, Y=OTHERY.
+
+
+seeIfReplays(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):- Bool=31. 
+seeIfReplays(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):- Bool=32. 
+seeIfReplays(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):- Bool=33.
+seeIfReplays(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):- Bool=34.
+
+
+
+
+crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX, NEWLASTY):-  fullCrossCut(C,I,X,Y,Jogador,Move,Boolean), NewBool is Boolean, NEWLASTX is X, NEWLASTY is Y.
+
+takeActions(B,C,I,X,Y,Counter,Jogador,Move,NewBool):- if_then_else(Move=2, replay(B,C,I,Jogador,Counter,Move,-10,0,0), write('')).
+
+
+
+verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- 
+				if_then_else(verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), 
+				write(''), 
+				replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY)).
 
 
 stroke(B,C,I,Jogador, Counter, Move, Bool, LASTX, LASTY):-
@@ -654,14 +808,22 @@ putPiece(B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LASTX,LASTY):-
 								if_then_else(P\='b', replay(B,C,I,Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
 								if_then_else(Elem='B', replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
 								if_then_else(Elem='W', replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='w', replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),		
-						
-								if_then_else( verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(verify1(C,I,X,Y,Jogador,Move,NewBool), NEWLASTX is X, NEWLASTX is 0),
-								if_then_else(verify1(C,I,X,Y,Jogador,Move,NewBool), NEWLASTY is Y, NEWLASTY is 0),
-								if_then_else(verify2(C,I,X,Y,Jogador,Move,NewBool), replay(B,C,I,Jogador,Counter,Move,NewBool,NEWLASTX,NEWLASTY), write('')),
+								if_then_else(Elem='w', replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
 
 
+								nl,write('LASTX: '), write(LASTX), write('LASTY: '), write(LASTY), write('BOOL: '), write(Bool), nl,
+	
+
+								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), write('')),
+	
+
+								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
+
+	
+								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), write('')),
+								
+			
+		
 								if_then_else(Elem='b', setPiece(B, X, Y, 'B', R), setPiece(B, X, Y, P, R)),
 								setCounting(C,X,Y,NewCountingBoard),
 								setIdentity(Jogador,I,X,Y, NewIdentityBoard),
@@ -671,7 +833,7 @@ putPiece(B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LASTX,LASTY):-
 								if_then_else(Move==1, stroke(R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
 
 								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
-		
+
 								stroke(R,NewCountingBoard,NewIdentityBoard, 2, Counter, 1, 0, LASTX,LASTY). 
 										
 putPiece(B,C,I,X, Y, P, Jogador, Counter, Move, Bool, LASTX, LASTY):- 
@@ -682,11 +844,16 @@ putPiece(B,C,I,X, Y, P, Jogador, Counter, Move, Bool, LASTX, LASTY):-
 								if_then_else(Elem='B', replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
 								if_then_else(Elem='b', replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),		
 						
-								if_then_else( verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
-								nl,write('X: '), write(X), write('LastX: '), write(LASTX), write('LastY: '), write(LASTY), write('Move: '), write(Move), write('BOOL: '), write(Bool), nl,
-								if_then_else(verify1(C,I,X,Y,Jogador,Move,NewBool), NEWLASTX is X, NEWLASTX is 0),
-								if_then_else(verify1(C,I,X,Y,Jogador,Move,NewBool), NEWLASTY is Y, NEWLASTY is 0),
-								if_then_else(verify2(C,I,X,Y,Jogador,Move,NewBool), replay(B,C,I,Jogador,Counter,Move,NewBool,NEWLASTX,NEWLASTY), write('')),
+								nl,write('LASTX: '), write(LASTX), write('LASTY: '), write(LASTY), write('BOOL: '), write(Bool), nl,
+	
+
+								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), write('')),
+			
+
+								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
+
+	
+								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), write('')),
 
 								if_then_else(Elem='w', setPiece(B, X, Y, 'W', R), setPiece(B, X, Y, P, R)),
 								setCounting(C,X,Y,NewCountingBoard),
@@ -697,6 +864,8 @@ putPiece(B,C,I,X, Y, P, Jogador, Counter, Move, Bool, LASTX, LASTY):-
 								if_then_else(Move==1, NewMove is Move+1, write('')),
 								if_then_else(Move==1, stroke(R,NewCountingBoard,NewIdentityBoard, 2,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
 
+		
+								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
 		
 								stroke(R,NewCountingBoard,NewIdentityBoard, 1, Counter, 1, 0, LASTX,LASTY).
 
