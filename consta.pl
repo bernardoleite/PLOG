@@ -13,7 +13,7 @@ fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   X1>=0, X1=<9, Y1>=0, Y1=<9,
 										   getPiece(I,X1,Y1,Elem1),if_then_else(Elem1>0, Elem1=Jogador, write('')),
 										   X2 is X1-1, Y2 is Y1+1, getPiece(I,X2,Y2,Elem2), Elem2 = Jogador,
 										   X3 is X1, Y3 is Y2, getPiece(I,X3,Y3,Elem3), Elem3 \= 0, Elem3 \= Jogador,
-										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= Jogador,
+										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= 0, Elem4 \= Jogador,
 										   getPiece(C,X1,Y1,Count1), getPiece(C,X2,Y2,Count2), getPiece(C,X3,Y3,Count3), getPiece(C,X4,Y4,Count4),
 										   Sum1 is Count1+Count2, Sum2 is Count3+Count4,
 										   Dif is Sum2-Sum1,
@@ -29,7 +29,7 @@ fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   X1>=0, X1=<9, Y1>=0, Y1=<9,
 										   getPiece(I,X1,Y1,Elem1), if_then_else(Elem1>0, Elem1=Jogador, write('')),
 										   X2 is X1-1, Y2 is Y1-1, getPiece(I,X2,Y2,Elem2), Elem2 = Jogador,
 										   X3 is X1, Y3 is Y2, getPiece(I,X3,Y3,Elem3),Elem3 \= 0, Elem3 \= Jogador,
-										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= Jogador,
+										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= 0, Elem4 \= Jogador,
 										   getPiece(C,X1,Y1,Count1), getPiece(C,X2,Y2,Count2), getPiece(C,X3,Y3,Count3), getPiece(C,X4,Y4,Count4),
 										   Sum1 is Count1+Count2, Sum2 is Count3+Count4,
 										   Dif is Sum2-Sum1,
@@ -45,7 +45,7 @@ fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   X1>=0, X1=<9, Y1>=0, Y1=<9,
 										   getPiece(I,X1,Y1,Elem1),if_then_else(Elem1>0, Elem1=Jogador, write('')),
 										   X2 is X1+1, Y2 is Y1-1, getPiece(I,X2,Y2,Elem2), Elem2 = Jogador,
 										   X3 is X1, Y3 is Y2, getPiece(I,X3,Y3,Elem3),Elem3 \= 0, Elem3 \= Jogador,
-										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= Jogador,
+										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= 0, Elem4 \= Jogador,
 										   getPiece(C,X1,Y1,Count1), getPiece(C,X2,Y2,Count2), getPiece(C,X3,Y3,Count3), getPiece(C,X4,Y4,Count4),
 										   Sum1 is Count1+Count2, Sum2 is Count3+Count4,
 										   Dif is Sum2-Sum1,
@@ -62,7 +62,7 @@ fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-
 										   getPiece(I,X1,Y1,Elem1), if_then_else(Elem1>0, Elem1=Jogador, write('')),
 										   X2 is X1+1, Y2 is Y1+1, getPiece(I,X2,Y2,Elem2), Elem2 = Jogador,
 										   X3 is X1, Y3 is Y2, getPiece(I,X3,Y3,Elem3),Elem3 \= 0, Elem3 \= Jogador,
-										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= Jogador,
+										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= 0, Elem4 \= Jogador,
 										   getPiece(C,X1,Y1,Count1), getPiece(C,X2,Y2,Count2), getPiece(C,X3,Y3,Count3), getPiece(C,X4,Y4,Count4),
 										   Sum1 is Count1+Count2, Sum2 is Count3+Count4,
 										   Dif is Sum2-Sum1,
@@ -513,12 +513,7 @@ existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 
 
 
-
-
-
-
-
-
+									
 existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I, X2, Y2, Elem2),
 									Elem1=Jogador,
@@ -647,53 +642,50 @@ whiteCoordsRight([[0,9], [1,9], [2,9], [3,9], [4,9],[5,9],[6,9],[7,9],[8,9],[9,9
 
 /*-------------*/
 
-showPath(Point1,Point2,Path):- if_then_else(path(Point1,Point2,Path), write(Path), write('')), nl.
-
-search(ResultList,Counter,Flag):-
+search(ResultList,Counter):-			
 						Counter=<99,
 						nth0(Counter,ResultList,Pair),
 						nth0(0,Pair,Point1), nth0(1,Pair,Point2),
-						if_then_else(Flag=1, showPath(Point1,Point2,Path), write('')),
+						if_then_else(path(Point1,Point2,Path), write(Path), write('')),
 						NewCounter is Counter+1,
-						searchVertiCally(ResultList,NewCounter).
+						search(ResultList,NewCounter).
 
 
-createsEdge(Point1,Point2,Flag):- assert(edge(Point1,Point2)), Flag is 1.
 
-buildEdges(B,C,I,Jogador,Counter,ResultList,Flag):- 
+agora(Point1,Point2):- assert(edge(Point1,Point2)).
+
+buildEdges(B,C,I,Jogador,Counter,ResultList):- 
 						Counter=<4949,
 						nth0(Counter,ResultList,Pair),
 						nth0(0,Pair,Point1), nth0(1,Pair,Point2),
 						nth0(0,Point1,P1x), nth0(1,Point1, P1y),
 						nth0(0,Point2,P2x), nth0(1,Point2, P2y), 
-						if_then_else(existsConnection(Jogador,C,I,P1x,P1y,P2x,P2y), createsEdge(Point1,Point2,Flag), write('')),
+						if_then_else(existsConnection(Jogador,C,I,P1x,P1y,P2x,P2y), agora(Point1,Point2), write('')),
 						NewCounter is Counter+1,
-						buildEdges(B,C,I,Jogador,NewCounter,ResultList,Flag).
+						buildEdges(B,C,I,Jogador,NewCounter,ResultList).
 												
 		
-findPaths(Jogador,Flag):- Jogador==1,
+findPaths(Jogador):- Jogador==1,
 			blackCoordsTop(List1), blackCoordsBottom(List2),
 			list_pairs(List1,List2, Pairs),
-			if_then_else(search(Pairs,0,Flag),write(''),write('')).
+			if_then_else(current_predicate(edge/2),search(Pairs,0),write('')).
 			
 			
-findPaths(Jogador,Flag):- Jogador==2,
+findPaths(Jogador):- Jogador==2,
 			whiteCoordsLeft(List1), whiteCoordsRight(List2),
 			list_pairs(List1,List2, Pairs),
-			if_then_else(search(Pairs,0,Flag),write(''),write('')).
+			if_then_else(current_predicate(edge/2),search(Pairs,0),write('')).
 
-			
 			
 
 victory(B,C,I,Jogador):- 
 						allCords(ListCoords),
 						findall(L, combination(2,ListCoords,L), ResultList),
-						if_then_else(buildEdges(B,C,I,Jogador,0,ResultList,Flag), write(''), write('')),
-						if_then_else(findPaths(Jogador,Flag), write(''),write('')),
-						if_then_else(Flag=1, retractall(edge(X,Y)), write('')).
+						if_then_else(buildEdges(B,C,I,Jogador,0,ResultList), write(''), write('')),
+						if_then_else(findPaths(Jogador), write(''),write('')),
+						if_then_else(current_predicate(edge/2), retractall(edge(X,Y)), write('')).
 	
 						
-							
 							
 
 			
@@ -736,13 +728,23 @@ identityBoard([	[0,0,0,0,0,0,0,0,0,0],
 			]
 				).					
 
-startGame:- use_module(library(lists)), initialBoard(B), countingBoard(C), identityBoard(I), showBoard(B), stroke(B,C,I,1,1,1,0,0,0).
-
-replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):- write('You cannot put that piece there!'), nl, stroke(B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY).
-								
-
-
-									 
+				
+menu:-  nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,
+		write('***Welcome to Consta Board Game!***') ,nl,nl,
+		write('How do you want to do?'), nl,nl,
+		write('Options:'),nl,
+		write('(1) -> Human vs Human'),nl,
+		write('(2) -> Human vs Computer'),nl,
+		write('(3) -> Computer vs Computer'),nl,nl,nl,
+		write('Your Option (Select 1, 2 or 3): '), read(Mode),nl,nl,
+		write('Select the difficulty: '), nl,nl,
+		write('(1) -> Easy'),nl,
+		write('(2) -> Moderate'),nl,
+		write('(3) -> Hard'),nl,
+		write('Your Option (Select 1, 2 or 3): '), read(Dif),nl,nl,
+		startGame(Mode,Dif).
+		
+							 
 verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==11,  X=LASTX, Y=LASTY.
 verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==12,  X=LASTX, Y=LASTY.
 verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- Move=2, Bool==13,  X=LASTX, Y=LASTY.
@@ -781,95 +783,208 @@ seeIfReplays(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):- Bool=34.
 
 
 
-
 crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX, NEWLASTY):-  fullCrossCut(C,I,X,Y,Jogador,Move,Boolean), NewBool is Boolean, NEWLASTX is X, NEWLASTY is Y.
 
-takeActions(B,C,I,X,Y,Counter,Jogador,Move,NewBool):- if_then_else(Move=2, replay(B,C,I,Jogador,Counter,Move,-10,0,0), write('')).
-
-
+takeActions(Mode,Dif,B,C,I,X,Y,Counter,Jogador,Move,NewBool):- if_then_else(Move=2, replay(Mode,Dif,B,C,I,Jogador,Counter,Move,-10,0,0), write('')).
 
 verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- 
 				if_then_else(verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), 
 				write(''), 
-				replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY)).
+				replay(Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY)).
 
+				
+startGame(Mode,Dif):-  use_module(library(lists)), use_module(library(system)), use_module(library(random)), initialBoard(B), countingBoard(C), identityBoard(I), showBoard(B), 
+					   if_then_else(Mode=1, stroke(Mode,Dif,B,C,I,1,1,1,0,0,0), write('')),
+					   if_then_else(Mode=2, stroke(Mode,Dif,B,C,I,1,1,1,0,0,0), write('')),
+					   if_then_else(Mode=3, strokeComputer(Mode,Dif,B,C,I,1,1,1,0,0,0), write('')).
 
-stroke(B,C,I,Jogador, Counter, Move, Bool, LASTX, LASTY):-
+replay(Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):- write('You cannot put that piece there!'), nl, stroke(Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY).
+
+stroke(Mode,Dif,B,C,I,Jogador, Counter, Move, Bool, LASTX, LASTY):-
 								Counter < 100, write('Player '), write(Jogador), write(' it is your turn!'), nl,
 								write('Line: '), nl, read(X), nl, 
 								write('Column: '), nl, read(Y), nl, 
 								write('Piece: '), nl, read(P), nl, 
 								write('Nr of Stroke: '), write(Counter), nl, NewCounter is Counter+1, 
-								putPiece(B,C,I, X, Y, P, Jogador, NewCounter, Move,Bool,LASTX,LASTY).
+								putPiece(Mode,Dif,B,C,I, X, Y, P, Jogador, NewCounter, Move,Bool,LASTX,LASTY).
 
-putPiece(B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LASTX,LASTY):- 
+putPiece(Mode,Dif,B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LASTX,LASTY):- 
 								Jogador == 1,
 								getPiece(B,X,Y,Elem),
-								if_then_else(P\='b', replay(B,C,I,Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='B', replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='W', replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='w', replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
-
-
-								nl,write('LASTX: '), write(LASTX), write('LASTY: '), write(LASTY), write('BOOL: '), write(Bool), nl,
+								if_then_else(P\='b', replay(Mode,Dif,B,C,I,Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
+								if_then_else(Elem='B', replay(Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
+								if_then_else(Elem='W', replay(Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
+								if_then_else(Elem='w', replay(Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
 	
-
 								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), write('')),
-	
-
-								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
-
-	
-								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), write('')),
+								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(Mode,Dif,B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
+								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(Mode,Dif,B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), write('')),
 								
-			
-		
 								if_then_else(Elem='b', setPiece(B, X, Y, 'B', R), setPiece(B, X, Y, P, R)),
 								setCounting(C,X,Y,NewCountingBoard),
 								setIdentity(Jogador,I,X,Y, NewIdentityBoard),
 								showBoard(R), nl,
 		
 								if_then_else(Move==1, NewMove is Move+1, write('')),
-								if_then_else(Move==1, stroke(R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
+								if_then_else(Move==1, stroke(Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
 
 								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
+							
+								if_then_else(Mode=1,
+											stroke(Mode,Dif,R,NewCountingBoard,NewIdentityBoard,2,Counter,1,0,LASTX,LASTY),
+											write('')
+											),
 
-								stroke(R,NewCountingBoard,NewIdentityBoard, 2, Counter, 1, 0, LASTX,LASTY). 
+								
+								if_then_else(Mode=2,
+											strokeComputer(Mode,Dif,R,NewCountingBoard,NewIdentityBoard,2,Counter,1,0,LASTX,LASTY),
+											write('')
+											).
+											
+								
 										
-putPiece(B,C,I,X, Y, P, Jogador, Counter, Move, Bool, LASTX, LASTY):- 
+putPiece(Mode,Dif,B,C,I,X, Y, P, Jogador, Counter, Move, Bool, LASTX, LASTY):- 
 								Jogador == 2,
 								getPiece(B,X,Y,Elem),
-								if_then_else(P\='w', replay(B,C,I,Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='W', replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='B', replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='b', replay(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),		
-						
-								nl,write('LASTX: '), write(LASTX), write('LASTY: '), write(LASTY), write('BOOL: '), write(Bool), nl,
-	
+								if_then_else(P\='w', replay(Mode,Dif,B,C,I,Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
+								if_then_else(Elem='W', replay(Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
+								if_then_else(Elem='B', replay(Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
+								if_then_else(Elem='b', replay(Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),		
 
 								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), write('')),
-			
-
-								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
-
-	
-								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), write('')),
+								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(Mode,Dif,B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
+								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(Mode,Dif,B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), write('')),
 
 								if_then_else(Elem='w', setPiece(B, X, Y, 'W', R), setPiece(B, X, Y, P, R)),
 								setCounting(C,X,Y,NewCountingBoard),
 								setIdentity(Jogador,I,X,Y, NewIdentityBoard),
 								showBoard(R), nl,
-						
-						
+	
 								if_then_else(Move==1, NewMove is Move+1, write('')),
-								if_then_else(Move==1, stroke(R,NewCountingBoard,NewIdentityBoard, 2,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
+								if_then_else(Move==1, stroke(Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 2,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
 
 		
 								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
 		
-								stroke(R,NewCountingBoard,NewIdentityBoard, 1, Counter, 1, 0, LASTX,LASTY).
+								stroke(Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1, Counter, 1, 0, LASTX,LASTY).
 
 
+indexOf([Element|_], Element, 0). 
+indexOf([_|Tail], Element, Index):-
+  indexOf(Tail, Element, Index1), 
+  Index is Index1+1. 
+
+ 
+ generate_board(Length, Board) :-
+     length(Board, Length),
+     maplist(=([]), Board).
+	 
+insert_in_list(Item, List, [Item|List]).
+
+ 
+iterateList(Ger,B,C,I,Jogador,Result,Ite,CordsList):- 
+													  Ite < 100,
+													  nth0(Ite,CordsList,Point),
+												      nth0(0,Point,Px), nth0(1,Point,Py), 
+												      getPiece(I, Px, Py, Val), 
+												      if_then_else(Val==0, insert_in_list(Point, Ger, Res), copy(Ger,Res)),										  
+													  NewIte is Ite+1,
+												      iterateList(Res,B,C,I,Jogador,Result,NewIte,CordsList).										  
+												  
+			  
+ iterateList(Ger,B,C,I,Jogador,Result,Ite,CordsList):- Ite == 100, copy(Ger,Result).
+ 
+ possiblePositions(B,C,I,Jogador,Result):-  generate_board(0,Ger),
+											allCords(CordsList), 
+											if_then_else(iterateList(Ger,B,C,I,Jogador,Result,0,CordsList),write(''),write('')).
+								
+								
+createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,VALX,VALY):- 
+								random(0, 9, VALX),
+								random(0, 9, VALY),
+								Pos=[VALX,VALY],
+								if_then_else(member(Pos, FreePos), write(''), createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,NoVal,NoVal2)).
+
+							
+strokeComputer(Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):-
+								Counter < 100, write('Player '), write(Jogador), write('(Computer) '), write(' it is your turn!'), nl,
+								possiblePositions(B,C,I,Jogador,FreePos),
+								if_then_else(Dif==1, createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,VALX,VALY), write('')),
+								write('Line: '), nl, sleep(2), write(VALX), nl, 
+								write('Column: '), nl, sleep(2), write(VALY), nl, 
+								write('Piece: '), nl, sleep(2), if_then_else(Jogador==1,write('b'),write('w')), nl, 
+								if_then_else(Jogador==1, P = 'b', P = 'w'),
+								write('Nr of Stroke: '), write(Counter), nl, NewCounter is Counter+1, 
+								putPieceComputer(Mode,Dif,B,C,I,VALX,VALY,P,Jogador,NewCounter,Move,Bool,LASTX,LASTY).	
+
+
+								
+putPieceComputer(Mode,Dif,B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LASTX,LASTY):- 
+								Jogador == 1,
+								getPiece(B,X,Y,Elem),
+
+	
+								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), write('')),
+								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(Mode,Dif,B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
+								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(Mode,Dif,B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), write('')),
+								
+								if_then_else(Elem='b', setPiece(B, X, Y, 'B', R), setPiece(B, X, Y, P, R)),
+								setCounting(C,X,Y,NewCountingBoard),
+								setIdentity(Jogador,I,X,Y, NewIdentityBoard),
+								showBoard(R), nl,
+		
+								if_then_else(Move==1, NewMove is Move+1, write('')),
+								if_then_else(Move==1, stroke(Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
+
+								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
+
+	
+								strokeComputer(Mode,Dif,R,NewCountingBoard,NewIdentityBoard,2,Counter,1,0,LASTX,LASTY).
+
+											
+											
+											
+											
+putPieceComputer(Mode,Dif,B,C,I,X,Y,P,Jogador,Counter,Move,Bool,LASTX,LASTY):- 
+								Jogador == 2,
+								getPiece(B,X,Y,Elem),	
+
+								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), write('')),
+								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(Mode,Dif,B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
+								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(Mode,Dif,B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), write('')),
+
+								if_then_else(Elem='w', setPiece(B, X, Y, 'W', R), setPiece(B, X, Y, P, R)),
+								
+								setCounting(C,X,Y,NewCountingBoard),
+								setIdentity(Jogador,I,X,Y, NewIdentityBoard),
+								showBoard(R), nl,
+	
+								if_then_else(Move==1, NewMove is Move+1, write('')),
+								if_then_else(Move==1, strokeComputer(Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 2,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
+
+		
+								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
+		
+								
+								if_then_else(Mode=1,
+											stroke(Mode,Dif,R,NewCountingBoard,NewIdentityBoard,1,Counter,1,0,LASTX,LASTY),
+											write('')
+											),
+											
+								if_then_else(Mode=2,
+											stroke(Mode,Dif,R,NewCountingBoard,NewIdentityBoard,1,Counter,1,0,LASTX,LASTY),
+											write('')
+											),
+											
+											
+								if_then_else(Mode=2,
+											strokeComputer(Mode,Dif,R,NewCountingBoard,NewIdentityBoard,1,Counter,1,0,LASTX,LASTY),
+											write('')
+											).
+											
+								
+
+								
 
 showBoard(Board) :-
 	nl,
