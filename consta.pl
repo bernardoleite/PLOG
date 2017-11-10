@@ -642,13 +642,18 @@ whiteCoordsRight([[0,9], [1,9], [2,9], [3,9], [4,9],[5,9],[6,9],[7,9],[8,9],[9,9
 
 /*-------------*/
 
-search(ResultList,Counter):-			
+winner(Jogador,Path):-  if_then_else(current_predicate(edge/2), retractall(edge(X,Y)), write('')),
+						nl,nl,nl,write('Player '), write(Jogador), write(' is the winner!'), nl,
+						write('You made a connected chain!: '), write(Path), menu.
+						
+
+search(Jogador,ResultList,Counter):-			
 						Counter=<99,
 						nth0(Counter,ResultList,Pair),
 						nth0(0,Pair,Point1), nth0(1,Pair,Point2),
-						if_then_else(path(Point1,Point2,Path), write(Path), write('')),
+						if_then_else(path(Point1,Point2,Path), winner(Jogador,Path), write('')),
 						NewCounter is Counter+1,
-						search(ResultList,NewCounter).
+						search(Jogador,ResultList,NewCounter).
 
 
 
@@ -668,13 +673,13 @@ buildEdges(B,C,I,Jogador,Counter,ResultList):-
 findPaths(Jogador):- Jogador==1,
 			blackCoordsTop(List1), blackCoordsBottom(List2),
 			list_pairs(List1,List2, Pairs),
-			if_then_else(current_predicate(edge/2),search(Pairs,0),write('')).
+			if_then_else(current_predicate(edge/2),search(Jogador,Pairs,0),write('')).
 			
 			
 findPaths(Jogador):- Jogador==2,
 			whiteCoordsLeft(List1), whiteCoordsRight(List2),
 			list_pairs(List1,List2, Pairs),
-			if_then_else(current_predicate(edge/2),search(Pairs,0),write('')).
+			if_then_else(current_predicate(edge/2),search(Jogador,Pairs,0),write('')).
 
 			
 
@@ -736,12 +741,12 @@ menu:-  nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,
 		write('(1) -> Human vs Human'),nl,
 		write('(2) -> Human vs Computer'),nl,
 		write('(3) -> Computer vs Computer'),nl,nl,nl,
-		write('Your Option (Select 1, 2 or 3): '), read(Mode),nl,nl,
+		write('Your Option (Select 1, 2 or 3): '), nl,read(Mode),nl,nl,
 		write('Select the difficulty: '), nl,nl,
 		write('(1) -> Easy'),nl,
 		write('(2) -> Moderate'),nl,
 		write('(3) -> Hard'),nl,
-		write('Your Option (Select 1, 2 or 3): '), read(Dif),nl,nl,
+		write('Your Option (Select 1, 2 or 3): '),nl, read(Dif),nl,nl,
 		startGame(Mode,Dif).
 		
 							 
@@ -798,7 +803,16 @@ startGame(Mode,Dif):-  use_module(library(lists)), use_module(library(system)), 
 					   if_then_else(Mode=2, stroke(Mode,Dif,B,C,I,1,1,1,0,0,0), write('')),
 					   if_then_else(Mode=3, strokeComputer(Mode,Dif,B,C,I,1,1,1,0,0,0), write('')).
 
-replay(Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):- write('You cannot put that piece there!'), nl, stroke(Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY).
+modeAndJogador1(Mode,Jogador):- Mode=2, Jogador=1.
+modeAndJogador2(Mode,Jogador):- Mode=2, Jogador=2.
+
+replay(Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):-  write('You cannot put that piece there!'), nl,
+																if_then_else(Mode=1, stroke(Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
+																if_then_else(modeAndJogador1(Mode,Jogador), stroke(Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
+																if_then_else(modeAndJogador2(Mode,Jogador), strokeComputer(Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
+																if_then_else(Mode=3, strokeComputer(Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY), write('')).
+																
+
 
 stroke(Mode,Dif,B,C,I,Jogador, Counter, Move, Bool, LASTX, LASTY):-
 								Counter < 100, write('Player '), write(Jogador), write(' it is your turn!'), nl,
@@ -887,7 +901,7 @@ iterateList(Ger,B,C,I,Jogador,Result,Ite,CordsList):-
 													  nth0(Ite,CordsList,Point),
 												      nth0(0,Point,Px), nth0(1,Point,Py), 
 												      getPiece(I, Px, Py, Val), 
-												      if_then_else(Val==0, insert_in_list(Point, Ger, Res), copy(Ger,Res)),										  
+												      if_then_else(Val=0, insert_in_list(Point, Ger, Res), copy(Ger,Res)),										  
 													  NewIte is Ite+1,
 												      iterateList(Res,B,C,I,Jogador,Result,NewIte,CordsList).										  
 												  
@@ -898,26 +912,43 @@ iterateList(Ger,B,C,I,Jogador,Result,Ite,CordsList):-
 											allCords(CordsList), 
 											if_then_else(iterateList(Ger,B,C,I,Jogador,Result,0,CordsList),write(''),write('')).
 								
+					
+
+					
+					
+computerChecksBool(Move,LASTX,LASTY,VALX,VALY,Bool,Pos):-  Bool \= 31, Bool \= 32, Bool \= 33, Bool \= 34, Bool>0, VALX is LASTX, VALY is LASTY.
+computerChecksBool(Move,LASTX,LASTY,VALX,VALY,Bool,Pos):-  Bool=0, nth0(0,Pos,VALX), nth0(1,Pos,VALY).	
+computerChecksBool(Move,LASTX,LASTY,VALX,VALY,Bool,Pos):-  Bool<0, nth0(0,Pos,VALX), nth0(1,Pos,VALY).	
+
+	
+
+createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,Pos,VALX,VALY,Counter):- Counter > 0, member(Pos,FreePos),
+																				computerChecksBool(Move,LASTX,LASTY,VALX,VALY,Bool,Pos).
+																				 
+																				 
+					
+createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,Pos,VALX,VALY,Counter):- 
+								random(0, 10, AUXX),
+								random(0, 10, AUXY),
+								NewPos=[AUXX,AUXY],
+								NewCounter is Counter+1,
+								createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,NewPos,VALX,VALY,NewCounter).
 								
-createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,VALX,VALY):- 
-								random(0, 9, VALX),
-								random(0, 9, VALY),
-								Pos=[VALX,VALY],
-								if_then_else(member(Pos, FreePos), write(''), createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,NoVal,NoVal2)).
 
 							
 strokeComputer(Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):-
 								Counter < 100, write('Player '), write(Jogador), write('(Computer) '), write(' it is your turn!'), nl,
-								possiblePositions(B,C,I,Jogador,FreePos),
-								if_then_else(Dif==1, createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,VALX,VALY), write('')),
-								write('Line: '), nl, sleep(2), write(VALX), nl, 
-								write('Column: '), nl, sleep(2), write(VALY), nl, 
-								write('Piece: '), nl, sleep(2), if_then_else(Jogador==1,write('b'),write('w')), nl, 
+								possiblePositions(B,C,I,Jogador,FreePos), 
+								if_then_else(Dif==1, createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,Pos,VALX,VALY,0), write('')),
+								write('Line: '), nl,  write(VALX), nl, 
+								write('Column: '), nl, write(VALY), nl, 
+								write('Piece: '), nl, if_then_else(Jogador==1,write('b'),write('w')), nl, 
 								if_then_else(Jogador==1, P = 'b', P = 'w'),
 								write('Nr of Stroke: '), write(Counter), nl, NewCounter is Counter+1, 
 								putPieceComputer(Mode,Dif,B,C,I,VALX,VALY,P,Jogador,NewCounter,Move,Bool,LASTX,LASTY).	
 
 
+moveAndMode(Move,Mode):- Move==1, Mode==3.
 								
 putPieceComputer(Mode,Dif,B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LASTX,LASTY):- 
 								Jogador == 1,
@@ -932,11 +963,13 @@ putPieceComputer(Mode,Dif,B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LASTX,LAST
 								setCounting(C,X,Y,NewCountingBoard),
 								setIdentity(Jogador,I,X,Y, NewIdentityBoard),
 								showBoard(R), nl,
-		
 								if_then_else(Move==1, NewMove is Move+1, write('')),
+								if_then_else(moveAndMode(Move,Mode), strokeComputer(Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
 								if_then_else(Move==1, stroke(Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
 
+
 								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
+
 
 	
 								strokeComputer(Mode,Dif,R,NewCountingBoard,NewIdentityBoard,2,Counter,1,0,LASTX,LASTY).
@@ -958,6 +991,7 @@ putPieceComputer(Mode,Dif,B,C,I,X,Y,P,Jogador,Counter,Move,Bool,LASTX,LASTY):-
 								setCounting(C,X,Y,NewCountingBoard),
 								setIdentity(Jogador,I,X,Y, NewIdentityBoard),
 								showBoard(R), nl,
+
 	
 								if_then_else(Move==1, NewMove is Move+1, write('')),
 								if_then_else(Move==1, strokeComputer(Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 2,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
@@ -965,19 +999,19 @@ putPieceComputer(Mode,Dif,B,C,I,X,Y,P,Jogador,Counter,Move,Bool,LASTX,LASTY):-
 		
 								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
 		
-								
+
 								if_then_else(Mode=1,
 											stroke(Mode,Dif,R,NewCountingBoard,NewIdentityBoard,1,Counter,1,0,LASTX,LASTY),
 											write('')
 											),
-											
+
 								if_then_else(Mode=2,
 											stroke(Mode,Dif,R,NewCountingBoard,NewIdentityBoard,1,Counter,1,0,LASTX,LASTY),
 											write('')
 											),
 											
-											
-								if_then_else(Mode=2,
+
+								if_then_else(Mode=3,
 											strokeComputer(Mode,Dif,R,NewCountingBoard,NewIdentityBoard,1,Counter,1,0,LASTX,LASTY),
 											write('')
 											).
