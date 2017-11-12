@@ -448,9 +448,9 @@ badMenus(Mode,Dif):- Dif>3, nl, write('!!!!!!Please, select a valid Menu Option!
 menu:-  nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,
 		write('***Welcome to Consta Board Game!***') ,nl,nl,
 		write('The Game:') ,nl,
-		write('Goal: Make a Connected Chain from Left extrem of the Board to the Right Extreme or Vice-Versa (Player with White Piece)') ,nl,
-		write('Goal: Make a Connected Chain from top of the Board to the Bottom or Vice-Versa (Player with Black Piece)') ,nl,
-		write('Adive: Be careful with Crosscuts! The player with highest rank stays with that diagonally connection') ,nl, nl, nl,
+		write('Goal: Make a Connected Chain from Left extrem of the Board to the Right Extreme or Vice-Versa (Player with White Piece).') ,nl,
+		write('Goal: Make a Connected Chain from top of the Board to the Bottom or Vice-Versa (Player with Black Piece).') ,nl,
+		write('Adive: Be careful with Crosscuts! The player with highest rank stays with that diagonally connection.') ,nl, nl, nl,
 		write('What do you want to do?'), nl,nl,
 		write('Options:'),nl,
 		write('(1) -> Human vs Human'),nl,
@@ -798,7 +798,7 @@ verifyDif2(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador
 
 						
 
-verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=1, Mode=3, Dif=2, Counter=1, VALX is 9, random(3, 6, VALY), CurrPoint=[9,VALY].	
+verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=1, Mode=3, Dif=2, Counter=1, VALX is 9, random(4, 6, VALY), CurrPoint=[9,VALY].	
 					
 verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=2, Mode=2, Dif=2, Counter=3, random(4, 6, VALX), VALY is 0, CurrPoint=[VALX,0].
 verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=2, Mode=3, Dif=2, Counter=3, random(4, 6, VALX), VALY is 0, CurrPoint=[VALX,0].
@@ -826,22 +826,22 @@ checkBoolAndDIF(Bool,Dif):- Bool<0, Dif>1.
 atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint):- Jogador=1, CurrPoint=[LX2,LY2].
 atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint):- Jogador=2, CurrPoint=[LX,LY].
 seeIfChangesDif(Dif,WAY,ACTIVE):- Dif=3, is_list(WAY), nth0(0,WAY,X),nth0(1,WAY,Y), X=100,Y=100, ACTIVE is 1.
+seeIfBoolisBiggerthanZero(Bool,Dif):- Bool=0, Dif==3.
 							
 strokeComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):-
 								Counter < 1000, write('Player '), write(Jogador), write('(Computer) '), write(' it is your turn!'), nl,
 								possiblePositions(B,C,I,Jogador,FreePos), 
-								
+						
 								if_then_else(Dif==1, createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,Pos,VALX,VALY,0), continueplay),
-								if_then_else(checkBoolAndDIF(Bool,Dif), createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,Pos,VALX,VALY,0), continueplay),
-							
+								if_then_else(checkBoolAndDIF(Bool,Dif), computerChecksBool(Move,LASTX,LASTY,VALX,VALY,Bool,Pos), continueplay),
 								if_then_else(verifyDif2(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint),continueplay,atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint)),
 								if_then_else(verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint),continueplay,atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint)),
-	
-								
+							
 						
-								if_then_else(Dif==3, searchAdvance(Bool,CurrPoint,B,C,I,Jogador,WAY), continueplay),
+								if_then_else(seeIfBoolisBiggerthanZero(Bool,Dif), searchAdvance(Bool,CurrPoint,B,C,I,Jogador,WAY), continueplay),
 								if_then_else(seeIfChangesDif(Dif,WAY,ACTIVE), searchPath(Bool,CurrPoint,B,C,I,Jogador,NEWWAY), continueplay),
 								if_then_else(Dif==2, searchPath(Bool,CurrPoint,B,C,I,Jogador,WAY), continueplay),
+
 																	
 								if_then_else(verifyDif2List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY,ACTIVE,NEWWAY),continueplay,continueplay),
 								if_then_else(verifyDif3List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY),continueplay,continueplay),
