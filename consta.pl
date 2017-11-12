@@ -9,7 +9,7 @@ verifyCases(Count1,Count2,Count3,Count4,Bool1) :- Count1 = 1, Count2 = 1, Bool1 
 
 
 fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   X1>=0, X1=<9, Y1>=0, Y1=<9,
-										   getPiece(I,X1,Y1,Elem1),if_then_else(Elem1>0, Elem1=Jogador, write('')),
+										   getPiece(I,X1,Y1,Elem1),if_then_else(Elem1>0, Elem1=Jogador, continueplay),
 										   X2 is X1-1, Y2 is Y1+1, getPiece(I,X2,Y2,Elem2), Elem2 = Jogador,
 										   X3 is X1, Y3 is Y2, getPiece(I,X3,Y3,Elem3), Elem3 \= 0, Elem3 \= Jogador,
 										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= 0, Elem4 \= Jogador,
@@ -18,14 +18,14 @@ fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   X1>=0, X1=<9, Y1>=0, Y1=<9,
 										   Dif is Sum2-Sum1,
 										   Dif=1,
 										   verifyCases(Count1,Count2,Count3,Count4,Bool1),
-										   if_then_else(Bool1=1, Bool is 11, write('')),
-										   if_then_else(Bool1=2, Bool is 21, write('')),
-										   if_then_else(Bool1=3, Bool is 31, write('')),
-										   if_then_else(Bool1=4, Bool is 41, write('')).
+										   if_then_else(Bool1=1, Bool is 11, continueplay),
+										   if_then_else(Bool1=2, Bool is 21, continueplay),
+										   if_then_else(Bool1=3, Bool is 31, continueplay),
+										   if_then_else(Bool1=4, Bool is 41, continueplay).
 										   
 										   
 fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   X1>=0, X1=<9, Y1>=0, Y1=<9,
-										   getPiece(I,X1,Y1,Elem1), if_then_else(Elem1>0, Elem1=Jogador, write('')),
+										   getPiece(I,X1,Y1,Elem1), if_then_else(Elem1>0, Elem1=Jogador, continueplay),
 										   X2 is X1-1, Y2 is Y1-1, getPiece(I,X2,Y2,Elem2), Elem2 = Jogador,
 										   X3 is X1, Y3 is Y2, getPiece(I,X3,Y3,Elem3),Elem3 \= 0, Elem3 \= Jogador,
 										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= 0, Elem4 \= Jogador,
@@ -34,14 +34,14 @@ fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   X1>=0, X1=<9, Y1>=0, Y1=<9,
 										   Dif is Sum2-Sum1,
 										   Dif=1,
 										   verifyCases(Count1,Count2,Count3,Count4,Bool1),
-										   if_then_else(Bool1=1, Bool is 12, write('')),
-										   if_then_else(Bool1=2, Bool is 22, write('')),
-										   if_then_else(Bool1=3, Bool is 32, write('')),
-										   if_then_else(Bool1=4, Bool is 42, write('')).
+										   if_then_else(Bool1=1, Bool is 12, continueplay),
+										   if_then_else(Bool1=2, Bool is 22, continueplay),
+										   if_then_else(Bool1=3, Bool is 32, continueplay),
+										   if_then_else(Bool1=4, Bool is 42, continueplay).
 										   
 										   
 fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   X1>=0, X1=<9, Y1>=0, Y1=<9,
-										   getPiece(I,X1,Y1,Elem1),if_then_else(Elem1>0, Elem1=Jogador, write('')),
+										   getPiece(I,X1,Y1,Elem1),if_then_else(Elem1>0, Elem1=Jogador, continueplay),
 										   X2 is X1+1, Y2 is Y1-1, getPiece(I,X2,Y2,Elem2), Elem2 = Jogador,
 										   X3 is X1, Y3 is Y2, getPiece(I,X3,Y3,Elem3),Elem3 \= 0, Elem3 \= Jogador,
 										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= 0, Elem4 \= Jogador,
@@ -50,15 +50,15 @@ fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   X1>=0, X1=<9, Y1>=0, Y1=<9,
 										   Dif is Sum2-Sum1,
 										   Dif=1,
 										   verifyCases(Count1,Count2,Count3,Count4,Bool1),
-										   if_then_else(Bool1=1, Bool is 13, write('')),
-										   if_then_else(Bool1=2, Bool is 23, write('')),
-										   if_then_else(Bool1=3, Bool is 33, write('')),
-										   if_then_else(Bool1=4, Bool is 43, write('')).
+										   if_then_else(Bool1=1, Bool is 13, continueplay),
+										   if_then_else(Bool1=2, Bool is 23, continueplay),
+										   if_then_else(Bool1=3, Bool is 33, continueplay),
+										   if_then_else(Bool1=4, Bool is 43, continueplay).
 										   
 										   
 fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-   
 											X1>=0, X1=<9, Y1>=0, Y1=<9,
-										   getPiece(I,X1,Y1,Elem1), if_then_else(Elem1>0, Elem1=Jogador, write('')),
+										   getPiece(I,X1,Y1,Elem1), if_then_else(Elem1>0, Elem1=Jogador, continueplay),
 										   X2 is X1+1, Y2 is Y1+1, getPiece(I,X2,Y2,Elem2), Elem2 = Jogador,
 										   X3 is X1, Y3 is Y2, getPiece(I,X3,Y3,Elem3),Elem3 \= 0, Elem3 \= Jogador,
 										   X4 is X2, Y4 is Y1, getPiece(I,X4,Y4,Elem4), Elem4 \= 0, Elem4 \= Jogador,
@@ -67,293 +67,22 @@ fullCrossCut(C,I,X1,Y1,Jogador,Move,Bool):-
 										   Dif is Sum2-Sum1,
 										   Dif=1,
 										   verifyCases(Count1,Count2,Count3,Count4,Bool1),
-										   if_then_else(Bool1=1, Bool is 14, write('')),
-										   if_then_else(Bool1=2, Bool is 24, write('')),
-										   if_then_else(Bool1=3, Bool is 34, write('')),
-										   if_then_else(Bool1=4, Bool is 44, write('')).
+										   if_then_else(Bool1=1, Bool is 14, continueplay),
+										   if_then_else(Bool1=2, Bool is 24, continueplay),
+										   if_then_else(Bool1=3, Bool is 34, continueplay),
+										   if_then_else(Bool1=4, Bool is 44, continueplay).
 
 
 
 
 
-/*
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 1,
-							 NY is Y-1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 2,
-							 NX is X-1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 2,
-							 NX2 is X-1, NY2 is Y-1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 1,
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1, 
-							 if_then_else(Move=2, Bool is 0, Bool is 1),
-							 Bool is 0.
-							
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 0,
-							 NY is Y-1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 2,
-							 NX is X-1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 2,
-							 NX2 is X-1, NY2 is Y-1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 1,
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-							 Bool is 1.
-							 
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 1,
-							 NY is Y+1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 2,
-							 NX is X-1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 2,
-							 NX2 is X-1, NY2 is Y+1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 1, 
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-							  Bool is 0.
-							 
-							 
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 0,
-							 NY is Y+1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 2,
-							 NX is X-1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 2,
-							 NX2 is X-1, NY2 is Y+1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 1, 
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-							 Bool is 1.
-							 
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 1,
-							 NY is Y-1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 2,
-							 NX is X+1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 2,
-							 NX2 is X+1, NY2 is Y-1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 1,
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-							  Bool is 0.
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 0,
-							 NY is Y-1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 2,
-							 NX is X+1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 2,
-							 NX2 is X+1, NY2 is Y-1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 1,
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-							 Bool is 1.
- 
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 1,
-							 NY is Y+1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 2,
-							 NX is X+1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 2,
-							 NX2 is X+1, NY2 is Y+1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 1,
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-								 Bool is 0.
-							 
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 1, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 0,
-							 NY is Y+1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 2,
-							 NX is X+1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 2,
-							 NX2 is X+1, NY2 is Y+1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 1,
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-							 Bool is 1.
-							 
-´
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 2, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 2,
-							 NY is Y-1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 1,
-							 NX is X-1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 1,
-							 NX2 is X-1, NY2 is Y-1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 2,
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							FINALval is VALUE1-VALUE2,
-							FINALval=1,
-								 Bool is 0.
-							
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 2, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 0,
-							 NY is Y-1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 1,
-							 NX is X-1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 1,
-							 NX2 is X-1, NY2 is Y-1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 2,
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							FINALval is VALUE1-VALUE2,
-							FINALval=1,
-							Bool is 1.
-							 
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 2, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 2,
-							 NY is Y+1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 1,
-							 NX is X-1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 1,
-							 NX2 is X-1, NY2 is Y+1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 2, 
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-							  Bool is 0.
-							 
-							 
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 2, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 0,
-							 NY is Y+1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 1,
-							 NX is X-1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 1,
-							 NX2 is X-1, NY2 is Y+1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 2, 
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-							 Bool is 1.
-							 
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 2, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 2,
-							 NY is Y-1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 1,
-							 NX is X+1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 1,
-							 NX2 is X+1, NY2 is Y-1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 2,
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-							 Bool is 0.
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 2, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 0,
-							 NY is Y-1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 1,
-							 NX is X+1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 1,
-							 NX2 is X+1, NY2 is Y-1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 2,
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-							 Bool is 1.
- 
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 2, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 2,
-							 NY is Y+1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 1,
-							 NX is X+1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 1,
-							 NX2 is X+1, NY2 is Y+1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 2,
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-							  Bool is 0.
-							 
-fullCrossCut(C,I,X,Y,Jogador,Move,Bool):-  Jogador == 2, X>=0, X=<9, Y>=0, Y=<9,
-							 getPiece(I,X,Y,Elem), Elem = 0,
-							 NY is Y+1,
-							 getPiece(I,X,NY,Elem1), Elem1 = 1,
-							 NX is X+1,
-							 getPiece(I,NX,Y,Elem2), Elem2 = 1,
-							 NX2 is X+1, NY2 is Y+1,
-							 getPiece(I,NX2,NY2,Elem3), Elem3 = 2,
-							 getPiece(C,X,NY,VAL1), getPiece(C,NX,Y,VAL2),
-							 getPiece(C,X,Y,VAL3), getPiece(C,NX2,NY2,VAL4),
-							 VALUE1 is VAL1+VAL2, VALUE2 is VAL3+VAL4,
-							 FINALval is VALUE1-VALUE2,
-							 FINALval=1,
-							 Bool is 1.							 
-							*/
+
 /*Get Stuff*/
-getPeca(Tabuleiro, Nlinha, NCol, Peca) :-
-	getElePos(NLinha, Tabuleiro, Linha),
-	getElePos(NCol, Linha, Peca).
-
-getElePos(1, [Elemento|_], Elemento).
-
-getElePos(Pos, [_|Resto], Elemento) :-
-	Pos > 1,
-	Next is Pos-1,
-	getElePos(Next, Resto, Elemento).
-	
 getPiece(Tab, Row, Column, Elem) :-    
    nth0(Row,Tab,ResultList),
    nth0(Column,ResultList,Elem).
    
-/*Set Stuff*/
-setPeca(TabIn, NLinha, NCol, Peca, TabOut) :-
-	setNaLinha(NLinha, TabIn, NCol, Peca, TabOut).
-
-setNaLinha(1, [Linha|Resto], NCol, Peca, [NovaLinha|Resto]):-
-	setNaColuna(NCol, Linha, Peca, NovaLinha).
-
-setNaLinha(Pos, [Linha|Resto], NCol, Peca, [Linha|NovoResto]):-
-	Pos > 1,
-	Next is Pos-1,
-	setNaLinha(Next, Resto, NCol, Peca, NovaLinha).
-
-setNaColuna(1, [_|Resto], Peca, [Peca|Resto]).
-
-setNaColuna(Pos, [X|Resto], Peca, [X|NovoResto]):-
-	Pos > 1,
-	Next is Pos-1,
-	setNaColuna(Next, Resto, Peca, NovoResto).
-	
+/*Set Stuff*/	
 setPiece( L , X , Y , Z , R ) :-
   append(RowPfx,[Row|RowSfx],L),   
   length(RowPfx,X) ,                 
@@ -368,26 +97,19 @@ accCp([H|T1],[H|T2]) :- accCp(T1,T2).
 
 setCounting(CountingBoard,Line,Column, NewBoard) :-  	
 	getPiece(CountingBoard,Line,Column,Elem),
-	if_then_else(Elem=0,setPiece(CountingBoard , Line,Column , 1 , NewBoard), write('')),
-	if_then_else(Elem=1,setPiece(CountingBoard , Line,Column , 2 , NewBoard), write('')).
+	if_then_else(Elem=0,setPiece(CountingBoard , Line,Column , 1 , NewBoard), continueplay),
+	if_then_else(Elem=1,setPiece(CountingBoard , Line,Column , 2 , NewBoard), continueplay).
 	
 setIdentity(Jogador,IdentityBoard,Line,Column, NewBoard) :-	
-	if_then_else(Jogador=1,setPiece(IdentityBoard , Line,Column , 1 , NewBoard), write('')),
-	if_then_else(Jogador=2,setPiece(IdentityBoard , Line,Column , 2 , NewBoard), write('')).
+	if_then_else(Jogador=1,setPiece(IdentityBoard , Line,Column , 1 , NewBoard), continueplay),
+	if_then_else(Jogador=2,setPiece(IdentityBoard , Line,Column , 2 , NewBoard), continueplay).
 						
  
- isEqual(Elem1,Elem2) :- Elem1 == Elem2.
+
  
 if_then_else(Condition, Action1, Action2) :- Condition, !, Action1.  
 if_then_else(Condition, Action1, Action2) :- Action2.
 
-and(A,B):- is_true(A), is_true(B).
-or(A,B):- is_true(A) ; is_true(B).
-
-is_true(true).     
-is_true(A):- var(A), !, false.  
-is_true(and(A,B)):- and(A,B).
-is_true(or(A,B)):- or(A,B).    
 
 
 /*Check if there is connection between two pieces on Board (ortogonally or diagonaly)*/
@@ -627,7 +349,7 @@ whiteCoordsRight([[0,9], [1,9], [2,9], [3,9], [4,9],[5,9],[6,9],[7,9],[8,9],[9,9
 
 /*-------------*/
 
-winner(Jogador,Path):-  if_then_else(current_predicate(edge/2), retractall(edge(X,Y)), write('')),
+winner(Jogador,Path):-  if_then_else(current_predicate(edge/2), retractall(edge(X,Y)), continueplay),
 						nl,nl,nl,write('Player '), write(Jogador), write(' is the winner!'), nl,
 						write('You made a connected chain!: '), write(Path), menu.
 						
@@ -636,7 +358,7 @@ search(Jogador,ResultList,Counter):-
 						Counter=<99,
 						nth0(Counter,ResultList,Pair),
 						nth0(0,Pair,Point1), nth0(1,Pair,Point2),
-						if_then_else(path(Point1,Point2,Path), winner(Jogador,Path), write('')),
+						if_then_else(path(Point1,Point2,Path), winner(Jogador,Path), continueplay),
 						NewCounter is Counter+1,
 						search(Jogador,ResultList,NewCounter).
 
@@ -650,7 +372,7 @@ buildEdges(B,C,I,Jogador,Counter,ResultList):-
 						nth0(0,Pair,Point1), nth0(1,Pair,Point2),
 						nth0(0,Point1,P1x), nth0(1,Point1, P1y),
 						nth0(0,Point2,P2x), nth0(1,Point2, P2y), 
-						if_then_else(existsConnection(Jogador,C,I,P1x,P1y,P2x,P2y), agora(Point1,Point2), write('')),
+						if_then_else(existsConnection(Jogador,C,I,P1x,P1y,P2x,P2y), agora(Point1,Point2), continueplay),
 						NewCounter is Counter+1,
 						buildEdges(B,C,I,Jogador,NewCounter,ResultList).
 												
@@ -658,22 +380,22 @@ buildEdges(B,C,I,Jogador,Counter,ResultList):-
 findPaths(Jogador):- Jogador==1,
 			blackCoordsTop(List1), blackCoordsBottom(List2),
 			list_pairs(List1,List2, Pairs),
-			if_then_else(current_predicate(edge/2),search(Jogador,Pairs,0),write('')).
+			if_then_else(current_predicate(edge/2),search(Jogador,Pairs,0),continueplay).
 			
 			
 findPaths(Jogador):- Jogador==2,
 			whiteCoordsLeft(List1), whiteCoordsRight(List2),
 			list_pairs(List1,List2, Pairs),
-			if_then_else(current_predicate(edge/2),search(Jogador,Pairs,0),write('')).
+			if_then_else(current_predicate(edge/2),search(Jogador,Pairs,0),continueplay).
 
 			
 
 victory(B,C,I,Jogador):- 
 						allCords(ListCoords),
 						findall(L, combination(2,ListCoords,L), ResultList),
-						if_then_else(buildEdges(B,C,I,Jogador,0,ResultList), write(''), write('')),
-						if_then_else(findPaths(Jogador), write(''),write('')),
-						if_then_else(current_predicate(edge/2), retractall(edge(X,Y)), write('')).
+						if_then_else(buildEdges(B,C,I,Jogador,0,ResultList), continueplay, continueplay),
+						if_then_else(findPaths(Jogador), continueplay,continueplay),
+						if_then_else(current_predicate(edge/2), retractall(edge(X,Y)), continueplay).
 	
 						
 							
@@ -718,20 +440,32 @@ identityBoard([	[0,0,0,0,0,0,0,0,0,0],
 			]
 				).					
 
+badMenus(Mode,Dif):- Mode<1, nl, write('!!!!!!Please, select a valid Menu Option!!!!!!'), nl.
+badMenus(Mode,Dif):- Mode>3, nl, write('!!!!!!Please, select a valid Menu Option!!!!!!'), nl.
+badMenus(Mode,Dif):- Dif<1, nl, write('!!!!!!Please, select a valid Menu Option!!!!!!'), nl.
+badMenus(Mode,Dif):- Dif>3, nl, write('!!!!!!Please, select a valid Menu Option!!!!!!'), nl.
 				
-menu:-  nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,
+menu:-  nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,
 		write('***Welcome to Consta Board Game!***') ,nl,nl,
-		write('How do you want to do?'), nl,nl,
+		write('The Game:') ,nl,
+		write('Goal: Make a Connected Chain from Left extrem of the Board to the Right Extreme or Vice-Versa (Player with White Piece)') ,nl,
+		write('Goal: Make a Connected Chain from top of the Board to the Bottom or Vice-Versa (Player with Black Piece)') ,nl,
+		write('Adive: Be careful with Crosscuts! The player with highest rank stays with that diagonally connection') ,nl, nl, nl,
+		write('What do you want to do?'), nl,nl,
 		write('Options:'),nl,
 		write('(1) -> Human vs Human'),nl,
 		write('(2) -> Human vs Computer'),nl,
 		write('(3) -> Computer vs Computer'),nl,nl,nl,
 		write('Your Option (Select 1, 2 or 3): '), nl,read(Mode),nl,nl,
+		if_then_else(Mode=1, startGame(Mode,1), continueplay),
 		write('Select the difficulty: '), nl,nl,
 		write('(1) -> Easy'),nl,
 		write('(2) -> Moderate'),nl,
 		write('(3) -> Hard'),nl,
 		write('Your Option (Select 1, 2 or 3): '),nl, read(Dif),nl,nl,
+		
+		if_then_else(badMenus(Mode,Dif), menu, continueplay),
+		
 		startGame(Mode,Dif).
 		
 							 
@@ -775,70 +509,81 @@ seeIfReplays(B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):- Bool=34.
 
 crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX, NEWLASTY):-  fullCrossCut(C,I,X,Y,Jogador,Move,Boolean), NewBool is Boolean, NEWLASTX is X, NEWLASTY is Y.
 
-takeActions(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X,Y,Counter,Jogador,Move,NewBool):- if_then_else(Move=2, replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,-10,0,0), write('')).
+takeActions(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X,Y,Counter,Jogador,Move,NewBool):- if_then_else(Move=2, replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,-10,0,0), continueplay).
 
 verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY):- 
 				if_then_else(verify_bool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), 
-				write(''), 
+				continueplay, 
 				replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY)).
 
 				
 startGame(Mode,Dif):-  use_module(library(lists)), use_module(library(system)), use_module(library(random)), initialBoard(B), countingBoard(C), identityBoard(I), showBoard(B), 
-					   if_then_else(Mode=1, stroke(LX,LY,LX2,LY2,Mode,Dif,B,C,I,1,1,1,0,0,0), write('')),
-					   if_then_else(Mode=2, stroke(LX,LY,LX2,LY2,Mode,Dif,B,C,I,1,1,1,0,0,0), write('')),
-					   if_then_else(Mode=3, strokeComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I,1,1,1,0,0,0), write('')).
+					   if_then_else(Mode=1, stroke(LX,LY,LX2,LY2,Mode,Dif,B,C,I,1,1,1,0,0,0), continueplay),
+					   if_then_else(Mode=2, stroke(LX,LY,LX2,LY2,Mode,Dif,B,C,I,1,1,1,0,0,0), continueplay),
+					   if_then_else(Mode=3, strokeComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I,1,1,1,0,0,0), continueplay).
 
 modeAndJogador1(Mode,Jogador):- Mode=2, Jogador=1.
 modeAndJogador2(Mode,Jogador):- Mode=2, Jogador=2.
 
-replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):-  write('You cannot put that piece there!'), nl,
-																if_then_else(Mode=1, stroke(LX,LY,LX2,LY2,Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
-																if_then_else(modeAndJogador1(Mode,Jogador), stroke(LX,LY,LX2,LY2,Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
-																if_then_else(modeAndJogador2(Mode,Jogador), strokeComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
-																if_then_else(Mode=3, strokeComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY), write('')).
+replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):-  nl,write('You cannot put that piece there!'), nl, nl, 
+																write('Possible Reasons for that: '), nl,
+																write('-> Incorrect Position on Board'), nl,
+																write('-> You are Playing on a Position Occupied by your opponent.'), nl,
+																write('-> Due to CrossCut Rankings, you have to place your Piece in the Crosscut'), nl,
+																write('-> Due to CrossCut Rankings, you have to place your Piece in other position But not on that Crosscut'), nl,
+																if_then_else(Mode=1, stroke(LX,LY,LX2,LY2,Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY), continueplay),
+																if_then_else(modeAndJogador1(Mode,Jogador), stroke(LX,LY,LX2,LY2,Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY), continueplay),
+																if_then_else(modeAndJogador2(Mode,Jogador), strokeComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY), continueplay),
+																if_then_else(Mode=3, strokeComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I, Jogador, Counter,Move,Bool,LASTX,LASTY), continueplay).
 																
 
+checkPos(X,Y):- X < 0.
+checkPos(X,Y):- X > 9.
+checkPos(X,Y):- Y > 9.
+checkPos(X,Y):- Y < 0.
 
 stroke(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador, Counter, Move, Bool, LASTX, LASTY):-
 								Counter < 100, write('Player '), write(Jogador), write(' it is your turn!'), nl,
 								write('Line: '), nl, read(X), nl, 
 								write('Column: '), nl, read(Y), nl, 
-								write('Piece: '), nl, read(P), nl, 
+								if_then_else(checkPos(X,Y), replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), continueplay),
+								write('Piece: '), if_then_else(Jogador==1,write('b'),write('w')), nl,
 								write('Nr of Stroke: '), write(Counter), nl, NewCounter is Counter+1, 
-
+								if_then_else(Jogador==1, P = 'b', P = 'w'),nl,
 								putPiece(LX,LY,LX2,LY2,Mode,Dif,B,C,I, X, Y, P, Jogador, NewCounter, Move,Bool,LASTX,LASTY).
 
 putPiece(LX,LY,LX2,LY2,Mode,Dif,B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LASTX,LASTY):- 
 								Jogador == 1,
 								getPiece(B,X,Y,Elem),
-								if_then_else(P\='b', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='B', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='W', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='w', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
+								
+								if_then_else(Elem='B', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), continueplay),
+								if_then_else(Elem='W', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), continueplay),
+								if_then_else(Elem='w', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), continueplay),
+
 	
-								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), write('')),
+								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), continueplay),
 								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
-								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), write('')),
+								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), continueplay),
 								
 								if_then_else(Elem='b', setPiece(B, X, Y, 'B', R), setPiece(B, X, Y, P, R)),
 								setCounting(C,X,Y,NewCountingBoard),
 								setIdentity(Jogador,I,X,Y, NewIdentityBoard),
 								showBoard(R), nl,
 		
-								if_then_else(Move==1, NewMove is Move+1, write('')),
-								if_then_else(Move==1, stroke(LX,LY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
+								if_then_else(Move==1, NewMove is Move+1, continueplay),
+								if_then_else(Move==1, stroke(LX,LY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), continueplay),
 
 								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
 							
 								if_then_else(Mode=1,
 											stroke(LX,LY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard,2,Counter,1,0,LASTX,LASTY),
-											write('')
+											continueplay
 											),
 
 								
 								if_then_else(Mode=2,
 											strokeComputer(LX,LY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard,2,Counter,1,0,LASTX,LASTY),
-											write('')
+											continueplay
 											).
 											
 								
@@ -846,22 +591,23 @@ putPiece(LX,LY,LX2,LY2,Mode,Dif,B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LAST
 putPiece(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X, Y, P, Jogador, Counter, Move, Bool, LASTX, LASTY):- 
 								Jogador == 2,
 								getPiece(B,X,Y,Elem),
-								if_then_else(P\='w', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador, Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='W', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='B', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),
-								if_then_else(Elem='b', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), write('')),		
+								
+								if_then_else(Elem='W', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), continueplay),
+								if_then_else(Elem='B', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), continueplay),
+								if_then_else(Elem='b', replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY), continueplay),
+	
 
-								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), write('')),
+								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), continueplay),
 								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
-								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), write('')),
+								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), continueplay),
 
 								if_then_else(Elem='w', setPiece(B, X, Y, 'W', R), setPiece(B, X, Y, P, R)),
 								setCounting(C,X,Y,NewCountingBoard),
 								setIdentity(Jogador,I,X,Y, NewIdentityBoard),
 								showBoard(R), nl,
 	
-								if_then_else(Move==1, NewMove is Move+1, write('')),
-								if_then_else(Move==1, stroke(LX,LY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 2,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
+								if_then_else(Move==1, NewMove is Move+1, continueplay),
+								if_then_else(Move==1, stroke(LX,LY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 2,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), continueplay),
 
 		
 								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
@@ -902,7 +648,7 @@ checkVal(Px,Py,Val,C,Jogador):- getPiece(C,Px,Py,Valc),
  
  possiblePositions(B,C,I,Jogador,Result):-  generate_board(0,Ger),
 											allCords(CordsList), 
-											if_then_else(iterateList(Ger,B,C,I,Jogador,Result,0,CordsList),write(''),write('')).
+											if_then_else(iterateList(Ger,B,C,I,Jogador,Result,0,CordsList),continueplay,continueplay).
 								
 					
 
@@ -956,8 +702,8 @@ allEdges(B,C,I,Jogador,Counter,ResultList):-
 						QUADX is ABSX*ABSX, QUADY is ABSY*ABSY,
 						SUM is QUADX+QUADY,
 						DIST is sqrt(SUM), 
-						if_then_else(verificance(DIST,Answer), assert(edge(Point1,Point2)), write('')),
-						if_then_else(verificance(DIST,Answer), assert(edge(Point2,Point1)), write('')),
+						if_then_else(verificance(DIST,Answer), assert(edge(Point1,Point2)), continueplay),
+						if_then_else(verificance(DIST,Answer), assert(edge(Point2,Point1)), continueplay),
 						NewCounter is Counter+1,
 						allEdges(B,C,I,Jogador,NewCounter,ResultList).
 						
@@ -974,7 +720,7 @@ tryPairs(B,C,I,Jogador,Pairs,SizePairs,Counter,WAY) :-
 							if_then_else(verifyElemi(ElemI,Point1,Point2,Path), copy(Path,WAY), tryPairs(B,C,I,Jogador,Pairs,SizePairs,NewCounter,WAY)).
 				
 	
-searchPath(CurrPoint,B,C,I,Jogador,WAY):-
+searchPath(Bool,CurrPoint,B,C,I,Jogador,WAY):-Bool=0,
 						Jogador==2,
 						allCords(ListCoords),			
 						findall(L, combination(2,ListCoords,L), ResultList),
@@ -983,11 +729,11 @@ searchPath(CurrPoint,B,C,I,Jogador,WAY):-
 						whiteCoordsRight(ListWhiteRight),
 						list_pairs(ThisPoint, ListWhiteRight, Pairs),
 						length(Pairs,SizePairs),
-						if_then_else(tryPairs(B,C,I,Jogador,Pairs,SizePairs,0,WAY), write(''), write('')),
+						if_then_else(tryPairs(B,C,I,Jogador,Pairs,SizePairs,0,WAY), continueplay, continueplay),
 						retractall(edge(X,Y)).
 						
 						
-searchPath(CurrPoint,B,C,I,Jogador,WAY):-
+searchPath(Bool,CurrPoint,B,C,I,Jogador,WAY):-Bool=0,
 						Jogador==1,
 						allCords(ListCoords),			
 						findall(L, combination(2,ListCoords,L), ResultList),
@@ -996,47 +742,116 @@ searchPath(CurrPoint,B,C,I,Jogador,WAY):-
 						blackCoordsBottom(ListBlackBottom),
 						list_pairs(ThisPoint, ListBlackBottom, Pairs),
 						length(Pairs,SizePairs),
-						if_then_else(tryPairs(B,C,I,Jogador,Pairs,SizePairs,0,WAY), write(''), write('')),
+						if_then_else(tryPairs(B,C,I,Jogador,Pairs,SizePairs,0,WAY), continueplay, continueplay),
 						retractall(edge(X,Y)).
 						
+decide(Choise,Elem1,Elem2,Elem3,WAY):- Elem1=0,Elem2=0,Elem3=0, Choise is 1.
+decide(Choise,Elem1,Elem2,Elem3,WAY):- Elem1=0,Elem2=0,Elem3\=0, Choise is 1.
+decide(Choise,Elem1,Elem2,Elem3,WAY):- Elem1=0,Elem2\=0,Elem3=0, Choise is 1.
+decide(Choise,Elem1,Elem2,Elem3,WAY):- Elem1=0,Elem2\=0,Elem3\=0, Choise is 1.
+decide(Choise,Elem1,Elem2,Elem3,WAY):- Elem1\=0,Elem2=0,Elem3=0, Choise is 2.
+decide(Choise,Elem1,Elem2,Elem3,WAY):- Elem1\=0,Elem2=0,Elem3\=0, Choise is 2.
+decide(Choise,Elem1,Elem2,Elem3,WAY):- Elem1\=0,Elem2\=0,Elem3=0, Choise is 3.
+decide(Choise,Elem1,Elem2,Elem3,WAY):- Elem1\=0,Elem2\=0,Elem3\=0, Choise is 0.
 
-verifyStroke3(Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Jogador=1, Mode=3, Dif=2, Counter=1, VALX is 0, VALY is 7, CurrPoint=[0,7].	
+						
+searchAdvance(Bool,CurrPoint,B,C,I,Jogador,WAY):- Bool==0,
+									Jogador==2,
+									nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y),
+									Pt1x is X, Pt1y is Y+1,
+									Pt2x is X+1, Pt2y is Y+1,
+									Pt3x is X-1, Pt3y is Y+1,
+									getPiece(I,Pt1x,Pt1y,Elem1),
+									getPiece(I,Pt2x,Pt2y,Elem2),
+									getPiece(I,Pt3x,Pt3y,Elem3),
+									decide(Choise,Elem1,Elem2,Elem3,WAY),
+									if_then_else(Choise==1, WAY=[Pt1x,Pt1y], continueplay),
+									if_then_else(Choise==2, WAY=[Pt2x,Pt2y], continueplay),
+									if_then_else(Choise==3, WAY=[Pt3x,Pt3y], continueplay),
+									if_then_else(Choise==0, WAY=[100,100], continueplay).
+									
+								
+searchAdvance(Bool,CurrPoint,B,C,I,Jogador,WAY):- Bool==0,
+									Jogador==1,
+									nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y),
+									Pt1x is X-1, Pt1y is Y,
+									Pt2x is X-1, Pt2y is Y+1,
+									Pt3x is X-1, Pt3y is Y-1,
+									getPiece(I,Pt1x,Pt1y,Elem1),
+									getPiece(I,Pt2x,Pt2y,Elem2),
+									getPiece(I,Pt3x,Pt3y,Elem3),
+									decide(Choise,Elem1,Elem2,Elem3,WAY),
+									if_then_else(Choise=1, WAY=[Pt1x,Pt1y], continueplay),
+									if_then_else(Choise=2, WAY=[Pt2x,Pt2y], continueplay),
+									if_then_else(Choise=3, WAY=[Pt3x,Pt3y], continueplay),
+									if_then_else(Choise=0, WAY=[100,100], continueplay).
+								
+									
+
+
+
+						
+verifyDif2(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=1, Mode=3, Dif=3, Counter=1, VALX is 9, random(4, 6, VALY), CurrPoint=[9,VALY].	
 					
-verifyStroke3(Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Jogador=2, Mode=2, Dif=2, Counter=3, VALX is 5, VALY is 0, CurrPoint=[5,0].
-verifyStroke3(Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Jogador=2, Mode=3, Dif=2, Counter=3, VALX is 5, VALY is 0, CurrPoint=[5,0].
+verifyDif2(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=2, Mode=2, Dif=3, Counter=3, random(4, 6, VALX), VALY is 0, CurrPoint=[VALX,0].
+verifyDif2(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=2, Mode=3, Dif=3, Counter=3, random(4, 6, VALX), VALY is 0, CurrPoint=[VALX,0].
+
+						
+
+verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=1, Mode=3, Dif=2, Counter=1, VALX is 9, random(3, 6, VALY), CurrPoint=[9,VALY].	
+					
+verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=2, Mode=2, Dif=2, Counter=3, random(4, 6, VALX), VALY is 0, CurrPoint=[VALX,0].
+verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=2, Mode=3, Dif=2, Counter=3, random(4, 6, VALX), VALY is 0, CurrPoint=[VALX,0].
 
 
-verifyStroke(Jogador,Mode,Dif,VALX,VALY,Counter,WAY):- Jogador = 1, Mode=3, Dif=2, Counter>1, is_list(WAY), nth0(1,WAY,Point), nth0(0,Point,VALX),nth0(1,Point,VALY).
+verifyDif2List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY,ACTIVE,NEWWAY):- Bool==0, ACTIVE==1, Jogador = 2, Mode=3, Dif=3, Counter>3, nth0(1,NEWWAY,NEWWAYY),  nth0(0,NEWWAYY,VALX),nth0(1,NEWWAYY,VALY).
+verifyDif2List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY,ACTIVE,NEWWAY):- Bool==0, Jogador = 1, Mode=3, Dif=3, Counter>1,  nth0(0,WAY,VALX),nth0(1,WAY,VALY).
 
-verifyStroke(Jogador,Mode,Dif,VALX,VALY,Counter,WAY):- Jogador = 2, Mode=2, Dif=2, Counter>3, is_list(WAY), nth0(1,WAY,Point), nth0(0,Point,VALX),nth0(1,Point,VALY).
-verifyStroke(Jogador,Mode,Dif,VALX,VALY,Counter,WAY):- Jogador = 2, Mode=3, Dif=2, Counter>3, is_list(WAY), nth0(1,WAY,Point), nth0(0,Point,VALX),nth0(1,Point,VALY).
+verifyDif2List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY,ACTIVE,NEWWAY):- Bool==0, Jogador = 2, Mode=2, Dif=3, Counter>3,  nth0(0,WAY,VALX),nth0(1,WAY,VALY).
+verifyDif2List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY,ACTIVE,NEWWAY):- Bool==0, Jogador = 2, Mode=3, Dif=3, Counter>3,  nth0(0,WAY,VALX),nth0(1,WAY,VALY).
 
+
+verifyDif3List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY):- Bool==0, Jogador = 1, Mode=3, Dif=2, Counter>1, is_list(WAY), nth0(1,WAY,Point), nth0(0,Point,VALX),nth0(1,Point,VALY).
+
+verifyDif3List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY):- Bool==0, Jogador = 2, Mode=2, Dif=2, Counter>3, is_list(WAY), nth0(1,WAY,Point), nth0(0,Point,VALX),nth0(1,Point,VALY).
+verifyDif3List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY):- Bool==0, Jogador = 2, Mode=3, Dif=2, Counter>3, is_list(WAY), nth0(1,WAY,Point), nth0(0,Point,VALX),nth0(1,Point,VALY).
+
+
+
+continueplay:- write('').
+
+checkBoolAndDIF(Bool,Dif):- Bool>0, Dif>1.
+checkBoolAndDIF(Bool,Dif):- Bool<0, Dif>1.
 
 atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint):- Jogador=1, CurrPoint=[LX2,LY2].
 atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint):- Jogador=2, CurrPoint=[LX,LY].
+seeIfChangesDif(Dif,WAY,ACTIVE):- Dif=3, is_list(WAY), nth0(0,WAY,X),nth0(1,WAY,Y), X=100,Y=100, ACTIVE is 1.
 							
 strokeComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LASTY):-
 								Counter < 1000, write('Player '), write(Jogador), write('(Computer) '), write(' it is your turn!'), nl,
 								possiblePositions(B,C,I,Jogador,FreePos), 
 								
-								if_then_else(Dif==1, createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,Pos,VALX,VALY,0), write('')),
+								if_then_else(Dif==1, createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,Pos,VALX,VALY,0), continueplay),
+								if_then_else(checkBoolAndDIF(Bool,Dif), createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,Pos,VALX,VALY,0), continueplay),
+							
+								if_then_else(verifyDif2(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint),continueplay,atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint)),
+								if_then_else(verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint),continueplay,atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint)),
+	
 								
 						
-		
-								if_then_else(verifyStroke3(Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint),write(''),atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint)),
-								
-						
-								
-								if_then_else(Dif==2, searchPath(CurrPoint,B,C,I,Jogador,WAY), write('')),						
-
-								if_then_else(verifyStroke(Jogador,Mode,Dif,VALX,VALY,Counter,WAY),write(WAY),write('')),
+								if_then_else(Dif==3, searchAdvance(Bool,CurrPoint,B,C,I,Jogador,WAY), continueplay),
+								if_then_else(seeIfChangesDif(Dif,WAY,ACTIVE), searchPath(Bool,CurrPoint,B,C,I,Jogador,NEWWAY), continueplay),
+								if_then_else(Dif==2, searchPath(Bool,CurrPoint,B,C,I,Jogador,WAY), continueplay),
+																	
+								if_then_else(verifyDif2List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY,ACTIVE,NEWWAY),continueplay,continueplay),
+								if_then_else(verifyDif3List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY),continueplay,continueplay),
 
 					
 								
-								write('Line: '), nl,  write(VALX), sleep(0), nl, 
-								write('Column: '), nl, write(VALY),sleep(0), nl, 
-								write('Piece: '), nl, if_then_else(Jogador==1,write('b'),write('w')), nl, sleep(0),
-								if_then_else(Jogador==1, P = 'b', P = 'w'),
+								write('Line: '), nl,  write(VALX),  nl, 
+								write('Column: '), nl, write(VALY), nl, 
+								write('Piece: '), if_then_else(Jogador==1,write('b'),write('w')), nl,
+								if_then_else(Jogador==1, P = 'b', P = 'w'), 
 								write('Nr of Stroke: '), write(Counter), nl, NewCounter is Counter+1, 
 								putPieceComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I,VALX,VALY,P,Jogador,NewCounter,Move,Bool,LASTX,LASTY).	
 
@@ -1048,22 +863,22 @@ putPieceComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I, X, Y, P, Jogador, Counter, Move,B
 								getPiece(B,X,Y,Elem),
 
 	
-								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), write('')),
+								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), continueplay),
 								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
-								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), write('')),
+								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), continueplay),
 								
 								if_then_else(Elem='b', setPiece(B, X, Y, 'B', R), setPiece(B, X, Y, P, R)),
 								setCounting(C,X,Y,NewCountingBoard),
 								setIdentity(Jogador,I,X,Y, NewIdentityBoard),
 								showBoard(R), nl,
-								if_then_else(Move==1, NewMove is Move+1, write('')),
+								if_then_else(Move==1, NewMove is Move+1, continueplay),
 								
 								
 								NEWLX2 is X, NEWLY2 is Y,
 						
 								
-								if_then_else(moveAndMode(Move,Mode), strokeComputer(LX,LY,NEWLX2,NEWLY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
-								if_then_else(Move==1, stroke(LX,LY,NEWLX2,NEWLY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
+								if_then_else(moveAndMode(Move,Mode), strokeComputer(LX,LY,NEWLX2,NEWLY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), continueplay),
+								if_then_else(Move==1, stroke(LX,LY,NEWLX2,NEWLY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), continueplay),
 
 
 								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
@@ -1080,9 +895,9 @@ putPieceComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X,Y,P,Jogador,Counter,Move,Bool,LA
 								Jogador == 2,
 								getPiece(B,X,Y,Elem),	
 
-								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), write('')),
+								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), continueplay),
 								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
-								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), write('')),
+								if_then_else(seeIfReplays(B,C,I,Jogador,Counter,Move,NewBool,LASTX,LASTY), replay(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,-10,LASTX,LASTY), continueplay),
 
 								if_then_else(Elem='w', setPiece(B, X, Y, 'W', R), setPiece(B, X, Y, P, R)),
 								
@@ -1092,8 +907,8 @@ putPieceComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X,Y,P,Jogador,Counter,Move,Bool,LA
 
 								NEWLX is X, NEWLY is Y,
 							
-								if_then_else(Move==1, NewMove is Move+1, write('')),
-								if_then_else(Move==1, strokeComputer(NEWLX,NEWLY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 2,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), write('')),
+								if_then_else(Move==1, NewMove is Move+1, continueplay),
+								if_then_else(Move==1, strokeComputer(NEWLX,NEWLY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 2,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), continueplay),
 
 		
 								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
@@ -1102,38 +917,42 @@ putPieceComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X,Y,P,Jogador,Counter,Move,Bool,LA
 
 								if_then_else(Mode=1,
 											stroke(NEWLX,NEWLY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard,1,Counter,1,0,LASTX,LASTY),
-											write('')
+											continueplay
 											),
 
 								if_then_else(Mode=2,
 											stroke(NEWLX,NEWLY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard,1,Counter,1,0,LASTX,LASTY),
-											write('')
+											continueplay
 											),
 											
 
 								if_then_else(Mode=3,
 											strokeComputer(NEWLX,NEWLY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard,1,Counter,1,0,LASTX,LASTY),
-											write('')
+											continueplay
 											).
 											
-								
 
-								
+
+		
 
 showBoard(Board) :-
 	nl,
 	write('***Current Board***'), nl,
+	write('   0 1 2 3 4 5 6 7 8 9 '),	
 	showLine,
-	showRowByRow(Board),
+	showRowByRow(0,Board),
 	showLine.
 
 showLine :-
 	nl.
 
-showRowByRow([]).
-showRowByRow([Line|Rest]) :-
-	showSingleRow(Line),
-	showRowByRow(Rest).
+showRowByRow(_,[]).
+showRowByRow(NrLine,[Line|Rest]) :-
+	write(NrLine),
+	write(' |'),
+	showSingleRow(Line), 
+	NewNrLine is NrLine+1,
+	showRowByRow(NewNrLine,Rest).
 
 showSingleRow([Cell]):-
 	write(Cell),
