@@ -114,14 +114,14 @@ if_then_else(Condition, Action1, Action2) :- Action2.
 
 /*Check if there is connection between two pieces on Board (ortogonally or diagonaly)*/
 									
-verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=0, Elem4=0.
-verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=Jogador, Elem4\=0, Elem4\=Jogador.
-verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3\=0, Elem3\=Jogador, Elem4=Jogador.
-verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=Jogador, Elem4=Jogador.
-verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=0, Elem4=Jogador.
-verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=Jogador, Elem4=0.
-verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=0, Elem4\=0, Elem4\=Jogador.
-verifythisCases(Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3\=0, Elem3\=Jogador, Elem4=0.							
+verifythisCases(Jogador,Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=0, Elem4=0.
+verifythisCases(Jogador,Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=Jogador, Elem4\=0, Elem4\=Jogador.
+verifythisCases(Jogador,Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3\=0, Elem3\=Jogador, Elem4=Jogador.
+verifythisCases(Jogador,Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=Jogador, Elem4=Jogador.
+verifythisCases(Jogador,Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=0, Elem4=Jogador.
+verifythisCases(Jogador,Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=Jogador, Elem4=0.
+verifythisCases(Jogador,Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3=0, Elem4\=0, Elem4\=Jogador.
+verifythisCases(Jogador,Elem1,Elem2,Elem3,Elem4):- Elem1=Elem2, Elem3\=0, Elem3\=Jogador, Elem4=0.							
 
 existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I, X2, Y2, Elem2),
@@ -233,8 +233,7 @@ existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									X4 is X2, Y4 is Y1,
 									getPiece(I,X3,Y3,Elem3),
 									getPiece(I,X4,Y4,Elem4),
-									Elem1\=Elem3, Elem1\=Elem4,
-									verifythisCases(Elem1,Elem2,Elem3,Elem4).
+									verifythisCases(Jogador,Elem1,Elem2,Elem3,Elem4).
 									
 existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I, X2, Y2, Elem2),
@@ -248,8 +247,7 @@ existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									X4 is X2, Y4 is Y1,
 									getPiece(I,X3,Y3,Elem3),
 									getPiece(I,X4,Y4,Elem4),
-									Elem1\=Elem3, Elem1\=Elem4,
-									verifythisCases(Elem1,Elem2,Elem3,Elem4).
+									verifythisCases(Jogador,Elem1,Elem2,Elem3,Elem4).
 									
 
 existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
@@ -264,8 +262,7 @@ existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									X4 is X2, Y4 is Y1,
 									getPiece(I,X3,Y3,Elem3),
 									getPiece(I,X4,Y4,Elem4),
-									Elem1\=Elem3, Elem1\=Elem4,
-									verifythisCases(Elem1,Elem2,Elem3,Elem4).
+									verifythisCases(Jogador,Elem1,Elem2,Elem3,Elem4).
 									
 existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									getPiece(I, X2, Y2, Elem2),
@@ -279,8 +276,7 @@ existsConnection(Jogador,C,I,X1,Y1,X2,Y2):- getPiece(I, X1, Y1, Elem1),
 									X4 is X2, Y4 is Y1,
 									getPiece(I,X3,Y3,Elem3),
 									getPiece(I,X4,Y4,Elem4),
-									Elem1\=Elem3, Elem1\=Elem4,
-									verifythisCases(Elem1,Elem2,Elem3,Elem4).									
+									verifythisCases(Jogador,Elem1,Elem2,Elem3,Elem4).									
 
 	   
 							
@@ -708,7 +704,8 @@ allEdges(B,C,I,Jogador,Counter,ResultList):-
 						allEdges(B,C,I,Jogador,NewCounter,ResultList).
 						
 						
-verifyElemi(ElemI,Point1,Point2,Path):- ElemI=0, path(Point1,Point2,Pathi), copy(Pathi,Path).
+verifyElemi(Jogador,ElemI,Point1,Point2,Path):- Jogador = 2, ElemI=0, if_then_else(path(Point1,Point2,Pathi), copy(Pathi,Path), (random(0, 10, VALX), Path=[[0,0],[VALX,0]])).
+verifyElemi(Jogador,ElemI,Point1,Point2,Path):- Jogador = 1, ElemI=0, if_then_else(path(Point1,Point2,Pathi), copy(Pathi,Path), (random(0, 10, VALY), Path=[[0,0],[9,VALY]])).
 
 tryPairs(B,C,I,Jogador,Pairs,SizePairs,Counter,WAY) :- 
 							Counter < SizePairs,
@@ -717,7 +714,7 @@ tryPairs(B,C,I,Jogador,Pairs,SizePairs,Counter,WAY) :-
 							nth0(0, OnePair, Point1), nth0(1, OnePair, Point2),
 							nth0(0,Point2,P2x), nth0(1,Point2,P2y),
 							getPiece(I,P2x,P2y,ElemI), 
-							if_then_else(verifyElemi(ElemI,Point1,Point2,Path), copy(Path,WAY), tryPairs(B,C,I,Jogador,Pairs,SizePairs,NewCounter,WAY)).
+							if_then_else(verifyElemi(Jogador,ElemI,Point1,Point2,Path), copy(Path,WAY), tryPairs(B,C,I,Jogador,Pairs,SizePairs,NewCounter,WAY)).
 				
 	
 searchPath(Bool,CurrPoint,B,C,I,Jogador,WAY):-Bool=0,
@@ -755,9 +752,42 @@ decide(Choise,Elem1,Elem2,Elem3,WAY):- Elem1\=0,Elem2\=0,Elem3=0, Choise is 3.
 decide(Choise,Elem1,Elem2,Elem3,WAY):- Elem1\=0,Elem2\=0,Elem3\=0, Choise is 0.
 
 						
-searchAdvance(Bool,CurrPoint,B,C,I,Jogador,WAY):- Bool==0,
+searchAdvance(Counter,Bool,CurrPoint,B,C,I,Jogador,WAY):- Bool==0,
 									Jogador==2,
-									nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y),
+									nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y), Counter >=3 , Counter =< 4, 
+									Pt1x is X, Pt1y is Y+1,  
+									Pt2x is X+1, Pt2y is Y+1, 
+									Pt3x is X-1, Pt3y is Y+1, 
+									getPiece(I,Pt1x,Pt1y,Elem1),
+									getPiece(I,Pt2x,Pt2y,Elem2),
+									getPiece(I,Pt3x,Pt3y,Elem3),
+									decide(Choise,Elem1,Elem2,Elem3,WAY),
+									if_then_else(Choise==1, WAY=[Pt1x,Pt1y], continueplay),
+									if_then_else(Choise==2, WAY=[Pt2x,Pt2y], continueplay),
+									if_then_else(Choise==3, WAY=[Pt3x,Pt3y], continueplay),
+									if_then_else(Choise==0, WAY=[100,100], continueplay).
+									
+								
+searchAdvance(Counter,Bool,CurrPoint,B,C,I,Jogador,WAY):- Bool==0, 
+									Jogador==1,
+									nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y), Counter =< 2,
+									Pt1x is X-1, Pt1y is Y,
+									Pt2x is X-1, Pt2y is Y+1,
+									Pt3x is X-1, Pt3y is Y-1,
+									getPiece(I,Pt1x,Pt1y,Elem1),
+									getPiece(I,Pt2x,Pt2y,Elem2),
+									getPiece(I,Pt3x,Pt3y,Elem3),
+									decide(Choise,Elem1,Elem2,Elem3,WAY),
+									if_then_else(Choise=1, WAY=[Pt1x,Pt1y], continueplay),
+									if_then_else(Choise=2, WAY=[Pt2x,Pt2y], continueplay),
+									if_then_else(Choise=3, WAY=[Pt3x,Pt3y], continueplay),
+									if_then_else(Choise=0, WAY=[100,100], continueplay).
+									
+									
+
+searchAdvance(Counter,Bool,CurrPoint,B,C,I,Jogador,WAY):- Bool==0,
+									Jogador==2,
+									nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y), Counter > 4 , X > 0, X < 9, Y > 0, Y < 9,
 									Pt1x is X, Pt1y is Y+1,
 									Pt2x is X+1, Pt2y is Y+1,
 									Pt3x is X-1, Pt3y is Y+1,
@@ -771,9 +801,9 @@ searchAdvance(Bool,CurrPoint,B,C,I,Jogador,WAY):- Bool==0,
 									if_then_else(Choise==0, WAY=[100,100], continueplay).
 									
 								
-searchAdvance(Bool,CurrPoint,B,C,I,Jogador,WAY):- Bool==0,
+searchAdvance(Counter,Bool,CurrPoint,B,C,I,Jogador,WAY):- Bool==0, 
 									Jogador==1,
-									nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y),
+									nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y), Counter > 4, X > 0, X < 9, Y > 0, Y < 9, 
 									Pt1x is X-1, Pt1y is Y,
 									Pt2x is X-1, Pt2y is Y+1,
 									Pt3x is X-1, Pt3y is Y-1,
@@ -784,12 +814,15 @@ searchAdvance(Bool,CurrPoint,B,C,I,Jogador,WAY):- Bool==0,
 									if_then_else(Choise=1, WAY=[Pt1x,Pt1y], continueplay),
 									if_then_else(Choise=2, WAY=[Pt2x,Pt2y], continueplay),
 									if_then_else(Choise=3, WAY=[Pt3x,Pt3y], continueplay),
-									if_then_else(Choise=0, WAY=[100,100], continueplay).
-								
+									if_then_else(Choise=0, WAY=[100,100], continueplay).								
 									
 
-
-
+searchAdvance(Counter,Bool,CurrPoint,B,C,I,Jogador,WAY):- Counter > 4, Jogador ==1, nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y), Y==0, WAY=[100,100].
+searchAdvance(Counter,Bool,CurrPoint,B,C,I,Jogador,WAY):- Counter > 4, Jogador ==1, nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y), Y==9, WAY=[100,100].
+searchAdvance(Counter,Bool,CurrPoint,B,C,I,Jogador,WAY):- Counter > 4, Jogador ==1, nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y), X==0, WAY=[100,100].
+searchAdvance(Counter,Bool,CurrPoint,B,C,I,Jogador,WAY):- Counter > 4, Jogador ==2, nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y), X==0, WAY=[100,100].
+searchAdvance(Counter,Bool,CurrPoint,B,C,I,Jogador,WAY):- Counter > 4, Jogador ==2, nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y), X==9, WAY=[100,100].
+searchAdvance(Counter,Bool,CurrPoint,B,C,I,Jogador,WAY):- Counter > 4, Jogador ==2, nth0(0,CurrPoint,X), nth0(1,CurrPoint,Y), Y==9, WAY=[100,100].
 						
 verifyDif2(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=1, Mode=3, Dif=3, Counter=1, VALX is 9, random(4, 6, VALY), CurrPoint=[9,VALY].	
 					
@@ -803,8 +836,8 @@ verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador
 verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=2, Mode=2, Dif=2, Counter=3, random(4, 6, VALX), VALY is 0, CurrPoint=[VALX,0].
 verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint):- Bool==0, Jogador=2, Mode=3, Dif=2, Counter=3, random(4, 6, VALX), VALY is 0, CurrPoint=[VALX,0].
 
-
-verifyDif2List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY,ACTIVE,NEWWAY):- Bool==0, ACTIVE==1, Jogador = 2, Mode=3, Dif=3, Counter>3, nth0(1,NEWWAY,NEWWAYY),  nth0(0,NEWWAYY,VALX),nth0(1,NEWWAYY,VALY).
+verifyDif2List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY,ACTIVE,NEWWAY):- Bool==0, ACTIVE==1,  Mode=2, Dif=3, Counter>3, nth0(1,NEWWAY,NEWWAYY),  nth0(0,NEWWAYY,VALX),nth0(1,NEWWAYY,VALY).
+verifyDif2List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY,ACTIVE,NEWWAY):- Bool==0, ACTIVE==1,  Mode=3, Dif=3, Counter>3, nth0(1,NEWWAY,NEWWAYY),  nth0(0,NEWWAYY,VALX),nth0(1,NEWWAYY,VALY).
 verifyDif2List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY,ACTIVE,NEWWAY):- Bool==0, Jogador = 1, Mode=3, Dif=3, Counter>1,  nth0(0,WAY,VALX),nth0(1,WAY,VALY).
 
 verifyDif2List(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,WAY,ACTIVE,NEWWAY):- Bool==0, Jogador = 2, Mode=2, Dif=3, Counter>3,  nth0(0,WAY,VALX),nth0(1,WAY,VALY).
@@ -823,8 +856,8 @@ continueplay:- write('').
 checkBoolAndDIF(Bool,Dif):- Bool>0, Dif>1.
 checkBoolAndDIF(Bool,Dif):- Bool<0, Dif>1.
 
-atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint):- Jogador=1, CurrPoint=[LX2,LY2].
-atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint):- Jogador=2, CurrPoint=[LX,LY].
+atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint):- Jogador=1, CurrPoint=[LX2,LY2], nl.
+atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint):- Jogador=2, CurrPoint=[LX,LY], nl.
 seeIfChangesDif(Dif,WAY,ACTIVE):- Dif=3, is_list(WAY), nth0(0,WAY,X),nth0(1,WAY,Y), X=100,Y=100, ACTIVE is 1.
 seeIfBoolisBiggerthanZero(Bool,Dif):- Bool=0, Dif==3.
 							
@@ -838,7 +871,7 @@ strokeComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LAST
 								if_then_else(verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint),continueplay,atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint)),
 							
 						
-								if_then_else(seeIfBoolisBiggerthanZero(Bool,Dif), searchAdvance(Bool,CurrPoint,B,C,I,Jogador,WAY), continueplay),
+								if_then_else(seeIfBoolisBiggerthanZero(Bool,Dif), searchAdvance(Counter, Bool,CurrPoint,B,C,I,Jogador,WAY), continueplay),
 								if_then_else(seeIfChangesDif(Dif,WAY,ACTIVE), searchPath(Bool,CurrPoint,B,C,I,Jogador,NEWWAY), continueplay),
 								if_then_else(Dif==2, searchPath(Bool,CurrPoint,B,C,I,Jogador,WAY), continueplay),
 
