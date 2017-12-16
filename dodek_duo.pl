@@ -1,3 +1,4 @@
+
 :-use_module(library(clpfd)), use_module(library(lists)).
 
 allListsDifferent2([],[],[]).
@@ -28,6 +29,20 @@ shift(L1, N, L2) :-
     append(Lx, Ly, L1), % L1 is Lx || Ly
     append(Ly, Lx, L2), % L2 is Ly || Lx
     length(Lx, N).      % The length of Lx is N
+	
+	
+rotate(N, Xs, Ys) :-
+    same_length(Xs, Ys),
+    leq_length(Bs, Xs),
+    length(Bs, N),
+    append(As, Bs, Xs),
+    append(Bs, As, Ys).
+
+  same_length([], []).
+  same_length([_|Xs], [_|Ys]) :- same_length(Xs, Ys).
+
+  leq_length([], _).
+  leq_length([_|Xs], [_|Ys]) :- leq_length(Xs, Ys).
 
 	
 generateAllPentagons(Pentagons,Tam,AuxList,Result,Counter):- Counter=Tam, Result=AuxList.
@@ -94,52 +109,29 @@ table([Face10],AllPenta),
 table([Face11],AllPenta),
 table([Face12],AllPenta),
 
+A1#=B1 #/\ A2#=F1 #/\ A3#=E1 #/\ A4#=D1 #/\ A5#=C1 #/\
 
-A1#=1 #/\ A2#=2 #/\ A3#=3 #/\ A4#=4 #/\ A5#=5 #/\
+B1#=A1 #/\ B2#=C5 #/\ B3#=H5 #/\ B4#=G1 #/\ B5#=F2 #/\
 
-B1#=3 #/\ B2#=4 #/\ B3#=1 #/\ B4#=5 #/\ B5#=2 #/\
+C1#=A5 #/\ C2#=D5 #/\ C3#=I5 #/\ C4#=H1 #/\ C5#=B2 #/\
 
-C1#=3 #/\ C2#=1 #/\ C3#=5 #/\ C4#=4 #/\ C5#=2 #/\
+D1#=A4 #/\ D2#=E5 #/\ D3#=J5 #/\ D4#=I1 #/\ D5#=C2 #/\
 
-D1#=3 #/\ D2#=5 #/\ D3#=4 #/\ D4#=1 #/\ D5#=2 #/\
+E1#=A3 #/\ E2#=F5 #/\ E3#=L5 #/\ E4#=J1 #/\ E5#=D2 #/\
 
-E1#=4 #/\ E2#=1 #/\ E3#=3 #/\ E4#=5 #/\ E5#=2 #/\
+F1#=A2 #/\ F2#=B5 #/\ F3#=G5 #/\ F4#=L1 #/\ F5#=E2 #/\
 
-F1#=4 #/\ F2#=5 #/\ F3#=2 #/\ F4#=1 #/\ F5#=3 #/\
+G1#=B4 #/\ G2#=H4 #/\ G3#=M5 #/\ G4#=L2 #/\ G5#=F3 #/\
 
-G1#=2 #/\ G2#=1 #/\ G3#=3 #/\ G4#=5 #/\ G5#=4 #/\
+H1#=C4 #/\ H2#=I4 #/\ H3#=M1 #/\ H4#=G2 #/\ H5#=B3 #/\
 
-H1#=2 #/\ H2#=5 #/\ H3#=4 #/\ H4#=1 #/\ H5#=3 #/\
+I1#=D4 #/\ I2#=J4 #/\ I3#=M2 #/\ I4#=H2 #/\ I5#=C3 #/\
 
-I1#=2 #/\ I2#=4 #/\ I3#=1 #/\ I4#=5 #/\ I5#=3 #/\
+J1#=E4 #/\ J2#=L4 #/\ J3#=M3 #/\ J4#=I2 #/\ J5#=D3 #/\
 
-J1#=2 #/\ J2#=1 #/\ J3#=5 #/\ J4#=4 #/\ J5#=3 #/\
+L1#=F4 #/\ L2#=G4 #/\ L3#=M4 #/\ L4#=J2 #/\ L5#=E3 #/\
 
-
-
-A1#=B3 #/\ A2#=F3 #/\ A3#=E3 #/\ A4#=D3 #/\ A5#=C3 #/\
-
-B1#=H5 #/\ B2#=C4 #/\ B3#=A1 #/\ B4#=F2 #/\ B5#=G1 #/\
-
-C1#=I5 #/\ C2#=D4 #/\ C3#=A5 #/\ C4#=B2 #/\ C5#=H1 #/\
-
-D1#=J5 #/\ D2#=E4 #/\ D3#=A4 #/\ D4#=C2 #/\ D5#=I1 #/\
-
-E1#=L5 #/\ E2#=F4 #/\ E3#=A3 #/\ E4#=D2 #/\ E5#=J1 #/\
-
-F1#=G5 #/\ F2#=B4 #/\ F3#=A2 #/\ F4#=E2 #/\ F5#=L1 #/\
-
-G1#=B5 #/\ G2#=H4 #/\ G3#=M4 #/\ G4#=L2 #/\ G5#=F1 #/\
-
-H1#=C5 #/\ H2#=I4 #/\ H3#=M3 #/\ H4#=G2 #/\ H5#=B1 #/\
-
-I1#=D5 #/\ I2#=J4 #/\ I3#=M2 #/\ I4#=H2 #/\ I5#=C1 #/\
-
-J1#=E5 #/\ J2#=L4 #/\ J3#=M1 #/\ J4#=I2 #/\ J5#=D1 #/\
-
-L1#=F5 #/\ L2#=G4 #/\ L3#=M5 #/\ L4#=J2 #/\ L5#=E1 #/\
-
-M1#=J3 #/\ M2#=I3 #/\ M3#=H3 #/\ M4#=G3 #/\ M5#=L3,
+M1#=H3 #/\ M2#=I3 #/\ M3#=J3 #/\ M4#=L3 #/\ M5#=G3,
 
 domain(Face1,1,5),
 domain(Face2,1,5),
@@ -175,6 +167,7 @@ allListsDifferent([Face1_2,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face1
 allListsDifferent([Face1_3,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
 allListsDifferent([Face1_4,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
 allListsDifferent([Face1_5,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
+
 
 %Face2
 Face2_2=[B2,B3,B4,B5,B1], Face2_3=[B3,B4,B5,B1,B2], Face2_4=[B4,B5,B1,B2,B3], Face2_5=[B5,B1,B2,B3,B4],
