@@ -29,22 +29,7 @@ shift(L1, N, L2) :-
     append(Lx, Ly, L1), % L1 is Lx || Ly
     append(Ly, Lx, L2), % L2 is Ly || Lx
     length(Lx, N).      % The length of Lx is N
-	
-	
-rotate(N, Xs, Ys) :-
-    same_length(Xs, Ys),
-    leq_length(Bs, Xs),
-    length(Bs, N),
-    append(As, Bs, Xs),
-    append(Bs, As, Ys).
 
-  same_length([], []).
-  same_length([_|Xs], [_|Ys]) :- same_length(Xs, Ys).
-
-  leq_length([], _).
-  leq_length([_|Xs], [_|Ys]) :- leq_length(Xs, Ys).
-
-	
 generateAllPentagons(Pentagons,Tam,AuxList,Result,Counter):- Counter=Tam, Result=AuxList.
 
 generateAllPentagons(Pentagons,Tam,AuxList,Result,Counter):-
@@ -75,8 +60,22 @@ Penta10=[1,4,2,5,3],
 Penta11=[2,5,1,4,3],
 Penta12=[4,5,3,2,1],
 
-Pentagons=[Penta1,Penta2,Penta3,Penta4,Penta5,Penta6,Penta7,Penta8,Penta9,Penta10,Penta11,Penta12],
+/*
+Penta1=[1,2,3,3,1],
+Penta2=[1,2,1,3,3],
+Penta3=[3,1,2,2,3],
+Penta4=[3,2,2,1,1],
+Penta5=[3,3,2,2,1],
+Penta6=[3,1,1,2,2],
+Penta7=[2,3,2,1,1],
+Penta8=[2,3,3,2,1],
+Penta9=[3,3,2,1,1],
+Penta10=[3,1,1,3,2],
+Penta11=[2,3,2,1,3],
+Penta12=[1,2,1,2,3],
+*/
 
+Pentagons=[Penta1,Penta2,Penta3,Penta4,Penta5,Penta6,Penta7,Penta8,Penta9,Penta10,Penta11,Penta12],
 
 length(Pentagons,Tam),
 generateAllPentagons(Pentagons,Tam,[],AllPenta,0),
@@ -108,6 +107,8 @@ table([Face9],AllPenta),
 table([Face10],AllPenta),
 table([Face11],AllPenta),
 table([Face12],AllPenta),
+
+
 
 A1#=B1 #/\ A2#=F1 #/\ A3#=E1 #/\ A4#=D1 #/\ A5#=C1 #/\
 
@@ -160,107 +161,22 @@ all_different(Face11),
 all_different(Face12),
 
 
-%Face1
-Face1_2=[A2,A3,A4,A5,A1], Face1_3=[A3,A4,A5,A1,A2], Face1_4=[A4,A5,A1,A2,A3], Face1_5=[A5,A1,A2,A3,A4],
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1_2,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1_3,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1_4,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1_5,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
 
+%Check if faces are different, including Rotations
 
-%Face2
-Face2_2=[B2,B3,B4,B5,B1], Face2_3=[B3,B4,B5,B1,B2], Face2_4=[B4,B5,B1,B2,B3], Face2_5=[B5,B1,B2,B3,B4],
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2_2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2_3,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2_4,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2_5,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
+AllFaces=[Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12],
 
-%Face3
-Face3_2=[C2,C3,C4,C5,C1], Face3_3=[C3,C4,C5,C1,C2], Face3_4=[C4,C5,C1,C2,C3], Face3_5=[C5,C1,C2,C3,C4],
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3_2,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3_3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3_4,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3_5,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
+generateAllPentagons(AllFaces,12,[],AllRots,0),
 
-%Face4
-Face4_2=[D2,D3,D4,D5,D1], Face4_3=[D3,D4,D5,D1,D2], Face4_4=[D4,D5,D1,D2,D3], Face4_5=[D5,D1,D2,D3,D4],
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4_2,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4_3,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4_4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4_5,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-
-%Face5
-Face5_2=[E2,E3,E4,E5,E1], Face5_3=[E3,E4,E5,E1,E2], Face5_4=[E4,E5,E1,E2,E3], Face5_5=[E5,E1,E2,E3,E4],
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5_2,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5_3,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5_4,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5_5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-
-%Face6
-Face6_2=[F2,F3,F4,F5,F1], Face6_3=[F3,F4,F5,F1,F2], Face6_4=[F4,F5,F1,F2,F3], Face6_5=[F5,F1,F2,F3,F4],
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6_2,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6_3,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6_4,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6_5,Face7,Face8,Face9,Face10,Face11,Face12]),
-
-%Face7
-Face7_2=[G2,G3,G4,G5,G1], Face7_3=[G3,G4,G5,G1,G2], Face7_4=[G4,G5,G1,G2,G3], Face7_5=[G5,G1,G2,G3,G4],
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7_2,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7_3,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7_4,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7_5,Face8,Face9,Face10,Face11,Face12]),
-
-%Face8
-Face8_2=[H2,H3,H4,H5,H1], Face8_3=[H3,H4,H5,H1,H2], Face8_4=[H4,H5,H1,H2,H3], Face8_5=[H5,H1,H2,H3,H4],
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8_2,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8_3,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8_4,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8_5,Face9,Face10,Face11,Face12]),
-
-%Face9
-Face9_2=[I2,I3,I4,I5,I1], Face9_3=[I3,I4,I5,I1,I2], Face9_4=[I4,I5,I1,I2,I3], Face9_5=[I5,I1,I2,I3,I4],
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9_2,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9_3,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9_4,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9_5,Face10,Face11,Face12]),
-
-%Face10
-Face10_2=[J2,J3,J4,J5,J1], Face10_3=[J3,J4,J5,J1,J2], Face10_4=[J4,J5,J1,J2,J3], Face10_5=[J5,J1,J2,J3,J4],
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10_2,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10_3,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10_4,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10_5,Face11,Face12]),
-
-%Face11
-Face11_2=[L2,L3,L4,L5,L1], Face11_3=[L3,L4,L5,L1,L2], Face11_4=[L4,L5,L1,L2,L3], Face11_5=[L5,L1,L2,L3,L4],
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11_2,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11_3Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11_4,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11_5,Face12]),
-
-%Face12
-Face12_2=[M2,M3,M4,M5,M1], Face12_3=[M3,M4,M5,M1,M2], Face12_4=[M4,M5,M1,M2,M3], Face12_5=[M5,M1,M2,M3,M4],
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12_2]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12_3]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12_4]),
-allListsDifferent([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12_5]),
+allListsDifferent(AllRots),
 
 
 append([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12],L),
 
-labeling([], L),
+findall(L,labeling([],L), List),
+length(List,Valor),
+write(Valor),nl,
+
 
 write(Face1),nl,
 write(Face2),nl,
