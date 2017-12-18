@@ -1,5 +1,39 @@
+:-use_module(library(clpfd)), use_module(library(lists)), use_module(library(random)).
 
-:-use_module(library(clpfd)), use_module(library(lists)).
+
+sublist(L1, L2, I, J):-
+    sublist(L1, Temp, I, J, []),
+    !,
+    reverse(Temp, L2).
+sublist([], L2, _I, _J, L2).
+sublist(_L1, L2, I, J, L2):-
+    I > J.
+sublist(L1, L2, I, J, L2):-
+    I < 0,
+    sublist(L1, L2, 0, J, L2).
+sublist([_L|Ls], L2, I, J, Acc):-
+    I > 0,
+    sublist(Ls, L2, I-1, J-1, Acc).
+sublist([L|Ls], L2, I, J, Acc):-
+    sublist(Ls, L2, I, J-1, [L|Acc]).
+	
+removeAll(_, [], []).
+removeAll(X, [X|T], L):- removeAll(X, T, L), !.
+removeAll(X, [H|T], [H|L]):- removeAll(X, T, L ).
+
+/*Generates all Combinations Given a List and N*/
+combination(0, _, []) :- 
+    !.
+combination(N, L, [V|R]) :-
+    N > 0,
+    NN is N - 1,
+    unknown(V, L, Rem),
+    combination(NN, Rem, R).
+
+unknown(X,[X|L],L).
+unknown(X,[_|L],R) :- 
+    unknown(X,L,R).
+	
 
 allListsDifferent2([],[],[]).
 allListsDifferent2([H1|T1],[H2|T2],[HB|TB]):-
@@ -40,25 +74,109 @@ generateAllPentagons(Pentagons,Tam,AuxList,Result,Counter):-
 	NewCounter is Counter+1,
 generateAllPentagons(Pentagons,Tam,NewAuxList,Result,NewCounter).
 
+
+naive_sort(List,Sorted):-perm(List,Sorted),is_sorted(Sorted).
+
+is_sorted([]).
+is_sorted([_]).
+is_sorted([X,Y|T]):-X=<Y,is_sorted([Y|T]).
+
+
+perm(List,[H|Perm]):-delete(H,List,Rest),perm(Rest,Perm).
+perm([],[]).
+
+delete(X,[X|T],T).
+delete(X,[H|T],[H|NT]):-delete(X,T,NT).
+
+if_then_else(Condition, Action1, Action2) :- Condition, !, Action1.  
+if_then_else(Condition, Action1, Action2) :- Action2.
+
+continueplay:- write('').
+
+getOriginalPentagons(OriginalPentagonsColor):-
+Penta1=[1,2,5,4,3],Penta2=[1,5,3,2,4],Penta3=[4,5,1,3,2],
+Penta4=[4,3,5,2,1],Penta5=[2,3,4,1,5],Penta6=[1,2,3,4,5],
+Penta7=[3,5,4,2,1],Penta8=[4,1,3,2,5],Penta9=[3,2,1,5,4],
+Penta10=[1,4,2,5,3],Penta11=[2,5,1,4,3],Penta12=[4,5,3,2,1],
+OriginalPentagonsColor=[Penta1,Penta2,Penta3,Penta4,Penta5,Penta6,Penta7,Penta8,Penta9,Penta10,Penta11,Penta12].
+
+
+
+buildGenericPentagon(NrColors,AuxList,GenericPentagon,Counter):- Counter>NrColors, GenericPentagon=AuxList.
+buildGenericPentagon(NrColors,AuxList,GenericPentagon,Counter):-
+	Counter=<NrColors,
+	append(AuxList,[Counter],NewAuxList),
+	NewCounter is Counter+1,
+buildGenericPentagon(NrColors,NewAuxList,GenericPentagon,NewCounter).
+
+comparePairs(Pairs,Tam,Counter,AuxList,ConcreteList):- Counter=Tam,ConcreteList=AuxList.
+comparePairs(Pairs,Tam,Counter,AuxList,ConcreteList):-
+	Counter < Tam,
+	nth0(Counter,Pairs,Pair),
+	nth0(0,Pair,Pent1),nth0(1,Pair,Pent2),
+	if_then_else(
+	(rotate_list(1,Pent1,Pent2);rotate_list(2,Pent1,Pent2);
+	rotate_list(3,Pent1,Pent2);rotate_list(4,Pent1,Pent2)),
+	if_then_else(member(Pent2,AuxList), removeAll(Pent2,AuxList,NewAuxList), NewAuxList=AuxList),
+	NewAuxList=AuxList),
+	NewCounter is Counter+1,
+comparePairs(Pairs,Tam,NewCounter,NewAuxList,ConcreteList).
 	
-teste(L):-
+
+
+
+removeRots(AllPermutations,ConcreteList):-
+	findall(Pair,combination(2,AllPermutations,Pair),Pairs),
+	length(Pairs,Tam),AuxList=AllPermutations,
+	comparePairs(Pairs,Tam,0,AuxList,ConcreteList).
+	
+	
+
+
+buildPentagons(NrPentagons,NrColors,BuiltPentagons):-
+	buildGenericPentagon(NrColors,[],GenericPentagon,1),
+	findall(Permutation, perm(GenericPentagon,Permutation), AllPermutations),
+	removeRots(AllPermutations,ConcreteList),
+	length(ConcreteList,Tam),
+	MaxRandom is Tam-NrPentagons,
+	random(0, MaxRandom, BeginList),
+	EndList is BeginList+NrPentagons-1,
+	sublist(ConcreteList, BuiltPentagons, BeginList, EndList).
+
+
+menu:-  getOriginalPentagons(OriginalPentagonsColor),
+		nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,
+		write('***Welcome to Dodek Duo Puzzle!***') ,nl,nl,
+		write('There are two Puzzles:') ,nl,
+		write('Puzzle 1: The aim is to assemble the puzzle so that at every edge two triangles of the same colour meet.') ,nl,
+		write('Puzzle 2: The aim is to assemble the puzzle so that at every edge identical shapes meet.') ,nl,
+		write('What do you want to do?'), nl,nl,
+		write('Options:'),nl,
+		write('(1) -> Solve Puzzle 1 (Same Color Meet)'),nl,
+		write('(2) -> Solve Puzzle 2 (Same Shapes Meet)'),nl,
+		write('Your Option (Select 1 or 2): '), nl,read(Puzzle),nl,nl,
+		if_then_else(Puzzle=1, write('How do you want to solve this Puzzle?:'), continueplay) ,nl,
+		if_then_else(Puzzle=1, write('(1) -> With the 12 Pentagonal Faces and 5 Colors from Original Puzzle.'), continueplay) ,nl,nl,
+		if_then_else(Puzzle=1, write('(2) -> I want to choose how many Pentagons and how many Colors'), continueplay) ,nl,nl,
+		write('Your Option (Select 1 or 2): '), nl, read(TypePentagons),nl,nl,
+		if_then_else((Puzzle=1,TypePentagons=1), dodek_duo(Puzzle,OriginalPentagonsColor,Solution), continueplay) ,nl, 
+		if_then_else((Puzzle=1,TypePentagons=2), (write('How many Pentagons? (Min is 12 and Max is 120) :  '), read(NrPentagons)), continueplay) ,nl,nl,
+		if_then_else((Puzzle=1,TypePentagons=2), (write('How many Colors?: (Minimum is 5) : '), read(NrColors)), continueplay) ,nl,nl,
+		if_then_else((Puzzle=1,TypePentagons=2), (buildPentagons(NrPentagons,NrColors,BuiltPentagons),dodek_duo(Puzzle,BuiltPentagons,Solution)), continueplay) ,nl,nl.
+
+	
+dodek_duo(Puzzle,Pentagons,Solution):-
+
+length(Pentagons,Tam), 
+generateAllPentagons(Pentagons,Tam,[],AllPenta,0),
+
 
 %1-Laranja 2-Azul 3-Verde 4-Amarelo, 5-Rosa
 
+%1-Retangulo 2-Semi-Circulo 3-Triangulo
+
 %A definir pelo utilizador.......
 
-Penta1=[1,2,5,4,3],
-Penta2=[1,5,3,2,4],
-Penta3=[4,5,1,3,2],
-Penta4=[4,3,5,2,1],
-Penta5=[2,3,4,1,5],
-Penta6=[1,2,3,4,5],
-Penta7=[3,5,4,2,1],
-Penta8=[4,1,3,2,5],
-Penta9=[3,2,1,5,4],
-Penta10=[1,4,2,5,3],
-Penta11=[2,5,1,4,3],
-Penta12=[4,5,3,2,1],
 
 /*
 Penta1=[1,2,3,3,1],
@@ -75,11 +193,8 @@ Penta11=[2,3,2,1,3],
 Penta12=[1,2,1,2,3],
 */
 
-Pentagons=[Penta1,Penta2,Penta3,Penta4,Penta5,Penta6,Penta7,Penta8,Penta9,Penta10,Penta11,Penta12],
 
-length(Pentagons,Tam),
-generateAllPentagons(Pentagons,Tam,[],AllPenta,0),
-
+%Creating All Faces. According to the figure this is read from top to bottom and left to right
 
 Face1=[A1,A2,A3,A4,A5],
 Face2=[B1,B2,B3,B4,B5],
@@ -94,7 +209,6 @@ Face10=[J1,J2,J3,J4,J5],
 Face11=[L1,L2,L3,L4,L5],
 Face12=[M1,M2,M3,M4,M5],
 
-
 table([Face1],AllPenta),
 table([Face2],AllPenta),
 table([Face3],AllPenta),
@@ -108,7 +222,7 @@ table([Face10],AllPenta),
 table([Face11],AllPenta),
 table([Face12],AllPenta),
 
-
+%Two faces that are adjacent must have the same color
 
 A1#=B1 #/\ A2#=F1 #/\ A3#=E1 #/\ A4#=D1 #/\ A5#=C1 #/\
 
@@ -134,6 +248,8 @@ L1#=F4 #/\ L2#=G4 #/\ L3#=M4 #/\ L4#=J2 #/\ L5#=E3 #/\
 
 M1#=H3 #/\ M2#=I3 #/\ M3#=J3 #/\ M4#=L3 #/\ M5#=G3,
 
+%Applying domain from 1 to 5 refering to the five colors that compose a face
+
 domain(Face1,1,5),
 domain(Face2,1,5),
 domain(Face3,1,5),
@@ -146,6 +262,9 @@ domain(Face9,1,5),
 domain(Face10,1,5),
 domain(Face11,1,5),
 domain(Face12,1,5),
+
+
+%Check if all the triangles from a face have different colors
 
 all_different(Face1),
 all_different(Face2),
@@ -170,23 +289,5 @@ generateAllPentagons(AllFaces,12,[],AllRots,0),
 
 allListsDifferent(AllRots),
 
-
-append([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12],L),
-
-findall(L,labeling([],L), List),
-length(List,Valor),
-write(Valor),nl,
-
-
-write(Face1),nl,
-write(Face2),nl,
-write(Face3),nl,
-write(Face4),nl,
-write(Face5),nl,
-write(Face6),nl,
-write(Face7),nl,
-write(Face8),nl,
-write(Face9),nl,
-write(Face10),nl,
-write(Face11),nl,
-write(Face12),nl.
+append([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12],Solution),
+findall(Solution,labeling([], Solution),AllSol).
