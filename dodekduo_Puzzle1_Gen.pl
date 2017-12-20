@@ -225,7 +225,7 @@ generateProb(AllFaces,Problem),printProblem(Problem),nl,nl,
 write('-> Note: Because there are 60 rotational symmetries '),nl,
 write('in a regular dodecahedron there are (x solutions * 60) total solutions to this problem.'),nl,nl,
 
-write('-> Want to see the Solution? (Type 1 for YES and 2 for NO.)'),nl,
+write('-> Want to see a possible Solution? (Type 1 for YES and 2 for NO.)'),nl,
 write('Your Option (Select 1 or 2): '), nl, read(Option),nl,nl,
 
 if_then_else(Option=1,

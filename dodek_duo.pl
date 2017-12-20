@@ -1,6 +1,8 @@
 :-use_module(library(clpfd)), use_module(library(lists)), use_module(library(random)).
 :-include(dodekduo_Puzzle1_Sol).
+:-include(dodekduo_Puzzle2_Sol).
 :-include(dodekduo_Puzzle1_Gen).
+
 
 forceColors(AllElements,MaxColor,Counter):-Counter=MaxColor.
 forceColors(AllElements,MaxColor,Counter):-
@@ -130,11 +132,15 @@ menu:-  nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,
 		write('(1) -> Solve Puzzle 1 (Same Color Meet)'),nl,
 		write('(2) -> Solve Puzzle 2 (Same Shapes Meet)'),nl,
 		write('Your Option (Select 1 or 2): '), nl,read(Puzzle),nl,nl,
-		if_then_else(Puzzle=1, write('How do you want to do with this Puzzle?:'), continueplay) ,nl,
+		if_then_else((Puzzle=1;Puzzle=2), write('How do you want to do with this Puzzle?:'), continueplay) ,nl,
 		if_then_else(Puzzle=1, write('(1) -> See Solution(s) of the Original Game.'), continueplay) ,nl,nl,
 		if_then_else(Puzzle=1, write('(2) -> Randomly generate a problem to be solved.'), continueplay) ,nl,nl,
+		if_then_else(Puzzle=2, write('(1) -> See Solution(s) of the Original Game.'), continueplay) ,nl,nl,
+		if_then_else(Puzzle=2, write('(2) -> Randomly generate a problem to be solved.'), continueplay) ,nl,nl,		
 		write('Your Option (Select 1 or 2): '), nl, read(Puzzle1_Option),nl,nl,
 		if_then_else((Puzzle=1,Puzzle1_Option=1), dodekduo_Puzzle1_Sol(Solution), continueplay) ,nl, 
 		if_then_else((Puzzle=1,Puzzle1_Option=2), (write('How many Colors?: (Minimum is 5 and Maximum is 12) : '), nl,read(NrColors)), continueplay) ,nl,nl,
-		if_then_else((Puzzle=1,Puzzle1_Option=2,NrColors>4, NrColors<13), continueplay, error) ,nl,nl,
-		if_then_else((Puzzle=1,Puzzle1_Option=2), dodekduo_Puzzle1_Gen(Solution,1,NrColors), continueplay) ,nl,nl.
+		if_then_else((Puzzle=1,Puzzle1_Option=2,NrColors<5, NrColors>12), error, continueplay) ,nl,nl,
+		if_then_else((Puzzle=1,Puzzle1_Option=2), dodekduo_Puzzle1_Gen(Solution,1,NrColors), continueplay) ,nl,nl,
+		
+		if_then_else((Puzzle=2,Puzzle1_Option=1), dodekduo_Puzzle2_Sol(Solution), continueplay) ,nl.

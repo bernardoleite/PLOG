@@ -1,11 +1,30 @@
-dodekduo_Puzzle1_Sol(Solution):-
 
-%1-Laranja 2-Azul 3-Verde 4-Amarelo, 5-Rosa
+print47Solutions(AllSol,Counter,Pentagons):- Counter=48, menu.
+print47Solutions(AllSol,Counter,Pentagons):-
+	Counter<48,
+	write('***Solution nr: '), write(Counter),write('***'),nl,nl,
+	nth1(Counter,AllSol,Sol),
+	printSolution(Pentagons,Sol),nl,nl,
+	write('-> Want to see next Solution? (Type 1 for YES and 2 for NO.)'),nl,
+	write('Your Option (Select 1 or 2): '), nl, read(Option),nl,nl,	
+	if_then_else(Option=1,(NewCounter is Counter+1,print47Solutions(AllSol,NewCounter,Pentagons)),(NewCounter is 48,print47Solutions(AllSol,NewCounter,Pentagons))).
 
-Penta1=[1,2,5,4,3],Penta2=[1,5,3,2,4],Penta3=[4,5,1,3,2],
-Penta4=[4,3,5,2,1],Penta5=[2,3,4,1,5],Penta6=[1,2,3,4,5],
-Penta7=[3,5,4,2,1],Penta8=[4,1,3,2,5],Penta9=[3,2,1,5,4],
-Penta10=[1,4,2,5,3],Penta11=[2,5,1,4,3],Penta12=[4,5,3,2,1],
+dodekduo_Puzzle2_Sol(Solution):-
+
+%1-Retangulo 2-Semi-Circulo 3-Triangulo
+
+Penta1=[1,2,3,3,1],
+Penta2=[1,2,1,3,3],
+Penta3=[3,1,2,2,3],
+Penta4=[3,2,2,1,1],
+Penta5=[3,3,2,2,1],
+Penta6=[3,1,1,2,2],
+Penta7=[2,3,2,1,1],
+Penta8=[2,3,3,2,1],
+Penta9=[3,3,2,1,1],
+Penta10=[3,1,1,3,2],
+Penta11=[2,3,2,1,3],
+Penta12=[1,2,1,2,3],
 
 Pentagons=[Penta1,Penta2,Penta3,Penta4,Penta5,Penta6,Penta7,Penta8,Penta9,Penta10,Penta11,Penta12],
 
@@ -41,11 +60,10 @@ table([Face11],AllPenta),
 table([Face12],AllPenta),
 
 %Two faces that are adjacent must have the same color
-
-
-		%Nota: Pelo facto do Dodecaedro ter 60 simetrias de rotação,
-		%esta restrição faz com que a solução corresponda à do enunciado.
-		A1#=1 #/\ A2#=2 #/\ A3#=3 #/\ A4#=4 #/\ A5#=5 #/\
+	
+			%Nota: Pelo facto do Dodecaedro ter 60 simetrias de rotação,
+			%esta restrição faz com que as soluções correspondam à do enunciado.
+			A1#=1 #/\ A2#=2 #/\ A3#=3 #/\ A4#=3 #/\ A5#=1 #/\
 
 A1#=B1 #/\ A2#=F1 #/\ A3#=E1 #/\ A4#=D1 #/\ A5#=C1 #/\
 
@@ -73,34 +91,18 @@ M1#=H3 #/\ M2#=I3 #/\ M3#=J3 #/\ M4#=L3 #/\ M5#=G3,
 
 %Applying domain from 1 to 5 refering to the five colors that compose a face
 
-domain(Face1,1,5),
-domain(Face2,1,5),
-domain(Face3,1,5),
-domain(Face4,1,5),
-domain(Face5,1,5),
-domain(Face6,1,5),
-domain(Face7,1,5),
-domain(Face8,1,5),
-domain(Face9,1,5),
-domain(Face10,1,5),
-domain(Face11,1,5),
-domain(Face12,1,5),
-
-%Check if all the triangles from a face have different colors
-
-all_different(Face1),
-all_different(Face2),
-all_different(Face3),
-all_different(Face4),
-all_different(Face5),
-all_different(Face6),
-all_different(Face7),
-all_different(Face8),
-all_different(Face9),
-all_different(Face10),
-all_different(Face11),
-all_different(Face12),
-
+domain(Face1,1,3),
+domain(Face2,1,3),
+domain(Face3,1,3),
+domain(Face4,1,3),
+domain(Face5,1,3),
+domain(Face6,1,3),
+domain(Face7,1,3),
+domain(Face8,1,3),
+domain(Face9,1,3),
+domain(Face10,1,3),
+domain(Face11,1,3),
+domain(Face12,1,3),
 
 %Check if faces are different, including Rotations
 
@@ -108,16 +110,18 @@ all_different(Face12),
 	generateAllPentagons(AllFaces,12,[],AllRots,0),
 	allListsDifferent(AllRots),
 
+write('Searching for all 47 solutions...'),nl,nl,nl,
 
 append([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12],Solution),
 findall(Solution,labeling([], Solution),AllSol),
+
+
 
 write('**********Problem Input: 12 Pentagons**********'), nl,nl,
 printProblem(Pentagons), nl , nl,
 
 write('-> Note: Because there are 60 rotational symmetries '),nl,
-write('in a regular dodecahedron there are (1 solution * 60) total solutions to this problem.'),nl,nl,
-write('-> The solution presented corresponds to the problem statement.'),nl,nl,
+write('in a regular dodecahedron there are (x solution * 60) total solutions to this problem.'),nl,nl,
+write('-> The 47 solutions presented here correspond to the problem statement.'),nl,nl,
 
-write('**********Solution:**********'), nl,nl,
-printSolution(Pentagons,Solution),menu.
+print47Solutions(AllSol,1,Pentagons).
