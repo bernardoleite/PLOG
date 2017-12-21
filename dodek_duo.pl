@@ -2,6 +2,7 @@
 :-include(dodekduo_Puzzle1_Sol).
 :-include(dodekduo_Puzzle2_Sol).
 :-include(dodekduo_Puzzle1_Gen).
+:-include(dodekduo_Puzzle2_Gen).
 
 
 forceColors(AllElements,MaxColor,Counter):-Counter=MaxColor.
@@ -10,6 +11,29 @@ forceColors(AllElements,MaxColor,Counter):-
 	element(X,AllElements,Counter),
 	NewCounter is Counter+1,
 forceColors(AllElements,MaxColor,NewCounter).
+
+
+checkAppears1PerFace(AllElements,Figure):-
+
+	nth1(1,AllElements,Face1), count(Figure,Face1,#=,Count1), Count1#>=1,Count1#=<2,
+	nth1(2,AllElements,Face2), count(Figure,Face2,#=,Count2), Count2#>=1,Count2#=<2,
+	nth1(3,AllElements,Face3), count(Figure,Face3,#=,Count3), Count3#>=1,Count3#=<2,
+	nth1(4,AllElements,Face4), count(Figure,Face4,#=,Count4), Count4#>=1,Count4#=<2,
+	nth1(5,AllElements,Face5), count(Figure,Face5,#=,Count5), Count5#>=1,Count5#=<2,
+	nth1(6,AllElements,Face6), count(Figure,Face6,#=,Count6), Count6#>=1,Count6#=<2,
+	nth1(7,AllElements,Face7), count(Figure,Face7,#=,Count7), Count7#>=1,Count7#=<2,
+	nth1(8,AllElements,Face8), count(Figure,Face8,#=,Count8), Count8#>=1,Count8#=<2,
+	nth1(9,AllElements,Face9), count(Figure,Face9,#=,Count9), Count9#>=1,Count9#=<2,
+	nth1(10,AllElements,Face10), count(Figure,Face10,#=,Count10), Count10#>=1,Count10#=<2,
+	nth1(11,AllElements,Face11), count(Figure,Face11,#=,Count11), Count11#>=1,Count11#=<2,
+	nth1(12,AllElements,Face12), count(Figure,Face12,#=,Count12), Count12#>=1,Count12#=<2.
+
+forceShapes(AllElements,MaxFigures,Counter):-Counter=MaxFigures.
+forceShapes(AllElements,MaxFigures,Counter):-
+	Counter<MaxFigures,
+	checkAppears1PerFace(AllElements,Counter),
+	NewCounter is Counter+1,
+forceShapes(AllElements,MaxFigures,NewCounter).
 
 same([], []).
 
@@ -137,10 +161,15 @@ menu:-  nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,
 		if_then_else(Puzzle=1, write('(2) -> Randomly generate a problem to be solved.'), continueplay) ,nl,nl,
 		if_then_else(Puzzle=2, write('(1) -> See Solution(s) of the Original Game.'), continueplay) ,nl,nl,
 		if_then_else(Puzzle=2, write('(2) -> Randomly generate a problem to be solved.'), continueplay) ,nl,nl,		
-		write('Your Option (Select 1 or 2): '), nl, read(Puzzle1_Option),nl,nl,
-		if_then_else((Puzzle=1,Puzzle1_Option=1), dodekduo_Puzzle1_Sol(Solution), continueplay) ,nl, 
-		if_then_else((Puzzle=1,Puzzle1_Option=2), (write('How many Colors?: (Minimum is 5 and Maximum is 12) : '), nl,read(NrColors)), continueplay) ,nl,nl,
-		if_then_else((Puzzle=1,Puzzle1_Option=2,NrColors<5, NrColors>12), error, continueplay) ,nl,nl,
-		if_then_else((Puzzle=1,Puzzle1_Option=2), dodekduo_Puzzle1_Gen(Solution,1,NrColors), continueplay) ,nl,nl,
+		write('Your Option (Select 1 or 2): '), nl, read(Puzzle_Option),nl,nl,
+		if_then_else((Puzzle=1,Puzzle_Option=1), dodekduo_Puzzle1_Sol(Solution), continueplay) ,nl, 
+		if_then_else((Puzzle=1,Puzzle_Option=2), (write('How many Colors?: (Minimum is 5 and Maximum is 12)  '), nl,read(NrColors)), continueplay) ,nl,nl,
+		if_then_else((Puzzle=2,Puzzle_Option=2), (write('How many Figures?: (Minimum is 3 and Maximum is 5)  '), nl,read(NrFigures)), continueplay) ,nl,nl,
+		if_then_else((Puzzle=1,Puzzle_Option=2,(NrColors<5; NrColors>12)), error, continueplay) ,nl,nl,
+		if_then_else((Puzzle=2,Puzzle_Option=2,(NrFigures<3; NrFigures>5)), error, continueplay) ,nl,nl,
+
+		if_then_else((Puzzle=1,Puzzle_Option=2), dodekduo_Puzzle1_Gen(Solution,1,NrColors), continueplay) ,nl,nl,
+		if_then_else((Puzzle=2,Puzzle_Option=2), dodekduo_Puzzle2_Gen(Solution,1,NrFigures), continueplay),
 		
-		if_then_else((Puzzle=2,Puzzle1_Option=1), dodekduo_Puzzle2_Sol(Solution), continueplay) ,nl.
+		if_then_else((Puzzle=2,Puzzle_Option=1), dodekduo_Puzzle2_Sol(Solution), continueplay).
+		
