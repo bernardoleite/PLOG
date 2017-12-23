@@ -5,6 +5,14 @@
 :-include(dodekduo_Puzzle2_Gen).
 
 
+playProblem1(Solution,Pentagons,5,0):-
+	if_then_else(dodekduo_Puzzle1_Sol(Solution,Pentagons,5,0),continueplay,noMoreSol).
+
+	
+playProblem2(Solution,Pentagons,3,0):-
+	if_then_else(dodekduo_Puzzle2_Sol(Solution,Pentagons,3,0),continueplay,noMoreSol).
+
+
 forceColors(AllElements,MaxColor,Counter):-Counter=MaxColor.
 forceColors(AllElements,MaxColor,Counter):-
 	Counter<MaxColor,
@@ -12,6 +20,8 @@ forceColors(AllElements,MaxColor,Counter):-
 	NewCounter is Counter+1,
 forceColors(AllElements,MaxColor,NewCounter).
 
+noMoreSol:- nl,nl,write('!!!No More Solutions!!!'),nl,nl,
+			menu.
 
 checkAppears1PerFace(AllElements,Figure):-
 
@@ -140,13 +150,28 @@ generateAllPentagons(Pentagons,Tam,AuxList,Result,Counter):-
 	NewCounter is Counter+1,
 generateAllPentagons(Pentagons,Tam,NewAuxList,Result,NewCounter).
 
+getProblem1Penta(Pentagons):- 
+	Penta1=[1,2,5,4,3],Penta2=[1,5,3,2,4],Penta3=[4,5,1,3,2],
+	Penta4=[4,3,5,2,1],Penta5=[2,3,4,1,5],Penta6=[1,2,3,4,5],
+	Penta7=[3,5,4,2,1],Penta8=[4,1,3,2,5],Penta9=[3,2,1,5,4],
+	Penta10=[1,4,2,5,3],Penta11=[2,5,1,4,3],Penta12=[4,5,3,2,1],
+	Pentagons=[Penta1,Penta2,Penta3,Penta4,Penta5,Penta6,Penta7,Penta8,Penta9,Penta10,Penta11,Penta12].
+
+getProblem2Penta(Pentagons):- 
+	Penta1=[1,2,3,3,1],Penta2=[1,2,1,3,3],Penta3=[3,1,2,2,3],Penta4=[3,2,2,1,1],
+	Penta5=[3,3,2,2,1],Penta6=[3,1,1,2,2],Penta7=[2,3,2,1,1],Penta8=[2,3,3,2,1],
+	Penta9=[3,3,2,1,1],Penta10=[3,1,1,3,2],Penta11=[2,3,2,1,3],Penta12=[1,2,1,2,3],
+	Pentagons=[Penta1,Penta2,Penta3,Penta4,Penta5,Penta6,Penta7,Penta8,Penta9,Penta10,Penta11,Penta12].
+	
+	
 if_then_else(Condition, Action1, Action2) :- Condition, !, Action1.  
 if_then_else(Condition, Action1, Action2) :- Action2.
 
 continueplay:- write('').
 error:- write('!!!Please, check your input!!!'),menu.
 
-menu:-  nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,
+menu:-  getProblem1Penta(Pentagons1),getProblem2Penta(Pentagons2),
+		nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,
 		write('***Welcome to Dodek Duo Puzzle!***') ,nl,nl,
 		write('There are two Puzzles:') ,nl,
 		write('Puzzle 1: The aim is to assemble the puzzle so that at every edge two triangles of the same colour meet.') ,nl,
@@ -162,7 +187,7 @@ menu:-  nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,
 		if_then_else(Puzzle=2, write('(1) -> See Solution(s) of the Original Game.'), continueplay) ,nl,nl,
 		if_then_else(Puzzle=2, write('(2) -> Randomly generate a problem to be solved.'), continueplay) ,nl,nl,		
 		write('Your Option (Select 1 or 2): '), nl, read(Puzzle_Option),nl,nl,
-		if_then_else((Puzzle=1,Puzzle_Option=1), dodekduo_Puzzle1_Sol(Solution), continueplay) ,nl, 
+		if_then_else((Puzzle=1,Puzzle_Option=1), playProblem1(Solution,Pentagons1,5,0), continueplay) ,nl, 
 		if_then_else((Puzzle=1,Puzzle_Option=2), (write('How many Colors?: (Minimum is 5 and Maximum is 12)  '), nl,read(NrColors)), continueplay) ,nl,nl,
 		if_then_else((Puzzle=2,Puzzle_Option=2), (write('How many Figures?: (Minimum is 3 and Maximum is 5)  '), nl,read(NrFigures)), continueplay) ,nl,nl,
 		if_then_else((Puzzle=1,Puzzle_Option=2,(NrColors<5; NrColors>12)), error, continueplay) ,nl,nl,
@@ -171,5 +196,5 @@ menu:-  nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,nl,
 		if_then_else((Puzzle=1,Puzzle_Option=2), dodekduo_Puzzle1_Gen(Solution,1,NrColors), continueplay) ,nl,nl,
 		if_then_else((Puzzle=2,Puzzle_Option=2), dodekduo_Puzzle2_Gen(Solution,1,NrFigures), continueplay),
 		
-		if_then_else((Puzzle=2,Puzzle_Option=1), dodekduo_Puzzle2_Sol(Solution), continueplay).
+		if_then_else((Puzzle=2,Puzzle_Option=1), playProblem2(Solution,Pentagons2,3,0), continueplay).
 		

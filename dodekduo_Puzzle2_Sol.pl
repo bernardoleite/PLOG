@@ -1,32 +1,7 @@
+dodekduo_Puzzle2_Sol(Solution,Pentagons,NrFigures,Input):-
 
-print47Solutions(AllSol,Counter,Pentagons):- Counter=48, menu.
-print47Solutions(AllSol,Counter,Pentagons):-
-	Counter<48,
-	write('***Solution nr: '), write(Counter),write('***'),nl,nl,
-	nth1(Counter,AllSol,Sol),
-	printSolution(Pentagons,Sol),nl,nl,
-	write('-> Want to see next Solution? (Type 1 for YES and 2 for NO.)'),nl,
-	write('Your Option (Select 1 or 2): '), nl, read(Option),nl,nl,	
-	if_then_else(Option=1,(NewCounter is Counter+1,print47Solutions(AllSol,NewCounter,Pentagons)),(NewCounter is 48,print47Solutions(AllSol,NewCounter,Pentagons))).
-
-dodekduo_Puzzle2_Sol(Solution):-
 
 %1-Retangulo 2-Semi-Circulo 3-Triangulo
-
-Penta1=[1,2,3,3,1],
-Penta2=[1,2,1,3,3],
-Penta3=[3,1,2,2,3],
-Penta4=[3,2,2,1,1],
-Penta5=[3,3,2,2,1],
-Penta6=[3,1,1,2,2],
-Penta7=[2,3,2,1,1],
-Penta8=[2,3,3,2,1],
-Penta9=[3,3,2,1,1],
-Penta10=[3,1,1,3,2],
-Penta11=[2,3,2,1,3],
-Penta12=[1,2,1,2,3],
-
-Pentagons=[Penta1,Penta2,Penta3,Penta4,Penta5,Penta6,Penta7,Penta8,Penta9,Penta10,Penta11,Penta12],
 
 length(Pentagons,Tam), 
 generateAllPentagons(Pentagons,Tam,[],AllPenta,0),
@@ -63,46 +38,46 @@ table([Face12],AllPenta),
 	
 			%Nota: Pelo facto do Dodecaedro ter 60 simetrias de rotação,
 			%esta restrição faz com que as soluções correspondam à do enunciado.
-			A1#=1 #/\ A2#=2 #/\ A3#=3 #/\ A4#=3 #/\ A5#=1 #/\
+			if_then_else(Input=0,(A1#=1 , A2#=2 , A3#=3 , A4#=3 , A5#=1),continueplay),
 
-A1#=B1 #/\ A2#=F1 #/\ A3#=E1 #/\ A4#=D1 #/\ A5#=C1 #/\
+A1#=B1 , A2#=F1 , A3#=E1 , A4#=D1 , A5#=C1 ,
 
-B1#=A1 #/\ B2#=C5 #/\ B3#=H5 #/\ B4#=G1 #/\ B5#=F2 #/\
+B1#=A1 , B2#=C5 , B3#=H5 , B4#=G1 , B5#=F2 ,
 
-C1#=A5 #/\ C2#=D5 #/\ C3#=I5 #/\ C4#=H1 #/\ C5#=B2 #/\
+C1#=A5 , C2#=D5 , C3#=I5 , C4#=H1 , C5#=B2 ,
 
-D1#=A4 #/\ D2#=E5 #/\ D3#=J5 #/\ D4#=I1 #/\ D5#=C2 #/\
+D1#=A4 , D2#=E5 , D3#=J5 , D4#=I1 , D5#=C2 ,
 
-E1#=A3 #/\ E2#=F5 #/\ E3#=L5 #/\ E4#=J1 #/\ E5#=D2 #/\
+E1#=A3 , E2#=F5 , E3#=L5 , E4#=J1 , E5#=D2 ,
 
-F1#=A2 #/\ F2#=B5 #/\ F3#=G5 #/\ F4#=L1 #/\ F5#=E2 #/\
+F1#=A2 , F2#=B5 , F3#=G5 , F4#=L1 , F5#=E2 ,
 
-G1#=B4 #/\ G2#=H4 #/\ G3#=M5 #/\ G4#=L2 #/\ G5#=F3 #/\
+G1#=B4 , G2#=H4 , G3#=M5 , G4#=L2 , G5#=F3 ,
 
-H1#=C4 #/\ H2#=I4 #/\ H3#=M1 #/\ H4#=G2 #/\ H5#=B3 #/\
+H1#=C4 , H2#=I4 , H3#=M1 , H4#=G2 , H5#=B3 ,
 
-I1#=D4 #/\ I2#=J4 #/\ I3#=M2 #/\ I4#=H2 #/\ I5#=C3 #/\
+I1#=D4 , I2#=J4 , I3#=M2 , I4#=H2 , I5#=C3 ,
 
-J1#=E4 #/\ J2#=L4 #/\ J3#=M3 #/\ J4#=I2 #/\ J5#=D3 #/\
+J1#=E4 , J2#=L4 , J3#=M3 , J4#=I2 , J5#=D3 ,
 
-L1#=F4 #/\ L2#=G4 #/\ L3#=M4 #/\ L4#=J2 #/\ L5#=E3 #/\
+L1#=F4 , L2#=G4 , L3#=M4 , L4#=J2 , L5#=E3 ,
 
-M1#=H3 #/\ M2#=I3 #/\ M3#=J3 #/\ M4#=L3 #/\ M5#=G3,
+M1#=H3 , M2#=I3 , M3#=J3 , M4#=L3 , M5#=G3,
 
 %Applying domain from 1 to 5 refering to the five colors that compose a face
 
-domain(Face1,1,3),
-domain(Face2,1,3),
-domain(Face3,1,3),
-domain(Face4,1,3),
-domain(Face5,1,3),
-domain(Face6,1,3),
-domain(Face7,1,3),
-domain(Face8,1,3),
-domain(Face9,1,3),
-domain(Face10,1,3),
-domain(Face11,1,3),
-domain(Face12,1,3),
+domain(Face1,1,NrFigures),
+domain(Face2,1,NrFigures),
+domain(Face3,1,NrFigures),
+domain(Face4,1,NrFigures),
+domain(Face5,1,NrFigures),
+domain(Face6,1,NrFigures),
+domain(Face7,1,NrFigures),
+domain(Face8,1,NrFigures),
+domain(Face9,1,NrFigures),
+domain(Face10,1,NrFigures),
+domain(Face11,1,NrFigures),
+domain(Face12,1,NrFigures),
 
 %Check if faces are different, including Rotations
 
@@ -110,18 +85,23 @@ domain(Face12,1,3),
 	generateAllPentagons(AllFaces,12,[],AllRots,0),
 	allListsDifferent(AllRots),
 
-write('Searching for all 47 solutions...'),nl,nl,nl,
+write('**********Problem Input: 12 Pentagons**********'), nl,nl,
+write('-> Nr of Figures: '), write(NrFigures),nl,
+printProblem(Pentagons), nl , nl,
 
 append([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12],Solution),
-findall(Solution,labeling([], Solution),AllSol),
-
-
-
-write('**********Problem Input: 12 Pentagons**********'), nl,nl,
-printProblem(Pentagons), nl , nl,
+labeling([], Solution),
 
 write('-> Note: Because there are 60 rotational symmetries '),nl,
 write('in a regular dodecahedron there are (x solution * 60) total solutions to this problem.'),nl,nl,
-write('-> The 47 solutions presented here correspond to the problem statement.'),nl,nl,
+write('-> The solution presented corresponds to the problem statement.'),nl,nl,
 
-print47Solutions(AllSol,1,Pentagons).
+write('**********Solution:**********'), nl,nl,
+printSolution(Pentagons,Solution),
+
+nl,write('-> See other Solution? (Type 1 for YES and 2 for NO)'),nl,
+write('Your Option (Select 1 or 2): '), nl, read(Option1),nl,nl,
+
+if_then_else((Input=1,Option1=1),fail, continueplay),
+if_then_else((Input=0,Option1=1),fail, continueplay),
+if_then_else((Input=0,Option1>1),menu, continueplay).

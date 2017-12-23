@@ -133,7 +133,6 @@ Faces_VAR=[Face_A,Face_B,Face_C,Face_D,Face_E,Face_F,Face_G,Face_H,Face_I,Face_J
 generateAllPentagons(Faces_VAR,12,[],AllFaces_VAR,0), 
 
 
-
 table([PentaA],AllFaces_VAR),
 table([PentaB],AllFaces_VAR),
 table([PentaC],AllFaces_VAR),
@@ -189,21 +188,11 @@ allListsDifferent(AllRots),
 append([Face1,Face2,Face3,Face4,Face5,Face6,Face7,Face8,Face9,Face10,Face11,Face12],Solution),
 labeling([], Solution),
 
-write('**********Problem Input: 12 Pentagons**********'), nl,
-write('-> Nr of Colors: '), write(MaxFigures),nl,
-generateProb(AllFaces,Problem),printProblem(Problem),nl,nl,
+generateProb(AllFaces,Problem),
 
-write('-> Note: Because there are 60 rotational symmetries '),nl,
-write('in a regular dodecahedron there are (x solutions * 60) total solutions to this problem.'),nl,nl,
-
-write('-> Want to see a possible Solution? (Type 1 for YES and 2 for NO.)'),nl,
-write('Your Option (Select 1 or 2): '), nl, read(Option),nl,nl,
-
-if_then_else(Option=1,
-(write('**********Solution:**********'), nl,
-printSolution(Problem,Solution),nl,nl), menu),
+if_then_else(dodekduo_Puzzle2_Sol(NewSolution,Problem,MaxFigures,1),continueplay,(nl,nl,write('No More Solutions!!!'),nl,nl)),
 
 write('-> Generate other Problem? (Type 1 for YES and 2 for NO)'),nl,
-write('Your Option (Select 1 or 2): '), nl, read(Option2),nl,nl,
+write('Your Option (Select 1 or 2): '), nl, read(Option1),nl,nl,
 
-if_then_else(Option2=1,fail, menu).
+if_then_else(Option1=1,fail, menu).
