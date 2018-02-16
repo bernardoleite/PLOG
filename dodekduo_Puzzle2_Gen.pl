@@ -76,7 +76,7 @@ Face10=[J1,J2,J3,J4,J5],
 Face11=[L1,L2,L3,L4,L5],
 Face12=[M1,M2,M3,M4,M5],
 
-%Applying domain from 1 to 5 refering to the five colors that compose a face
+%Applying domain from 1 to MaxFigures refering to the number of Figures that compose a face
 
 domain(Face1,MinFigures,MaxFigures),
 domain(Face2,MinFigures,MaxFigures),
@@ -146,7 +146,7 @@ table([PentaJ],AllFaces_VAR),
 table([PentaL],AllFaces_VAR),
 table([PentaM],AllFaces_VAR),
 
-%Two faces that are adjacent must have the same color
+%Two faces that are adjacent must have the same figure
 
 A1#=B1 #/\ A2#=F1 #/\ A3#=E1 #/\ A4#=D1 #/\ A5#=C1 #/\
 

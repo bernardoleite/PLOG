@@ -34,7 +34,7 @@ table([Face10],AllPenta),
 table([Face11],AllPenta),
 table([Face12],AllPenta),
 
-%Two faces that are adjacent must have the same color
+%Two faces that are adjacent must have the same figure
 	
 			%Nota: Pelo facto do Dodecaedro ter 60 simetrias de rotação,
 			%esta restrição faz com que as soluções correspondam à do enunciado.
@@ -64,7 +64,7 @@ L1#=F4 , L2#=G4 , L3#=M4 , L4#=J2 , L5#=E3 ,
 
 M1#=H3 , M2#=I3 , M3#=J3 , M4#=L3 , M5#=G3,
 
-%Applying domain from 1 to 5 refering to the five colors that compose a face
+%Applying domain from 1 to NrFigures refering to the number of Figures that compose a face
 
 domain(Face1,1,NrFigures),
 domain(Face2,1,NrFigures),
