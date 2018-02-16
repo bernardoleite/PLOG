@@ -345,24 +345,29 @@ whiteCoordsRight([[0,9], [1,9], [2,9], [3,9], [4,9],[5,9],[6,9],[7,9],[8,9],[9,9
 
 /*-------------*/
 
-winner(Jogador,Path):-  if_then_else(current_predicate(edge/2), retractall(edge(X,Y)), continueplay),
+winner(Jogador,Path,VictoryBool):-  if_then_else(current_predicate(edge/2), retractall(edge(X,Y)), continueplay),
 						nl,nl,nl,write('Player '), write(Jogador), write(' is the winner!'), nl,
-						write('You made a connected chain!: '), write(Path), menu.
+						write('You made a connected chain!: '), write(Path), VictoryBool=[].
 						
 
-search(Jogador,ResultList,Counter):-			
+						
+search(Jogador,ResultList,Counter,VictoryBool):-Counter=100.
+search(Jogador,ResultList,Counter,VictoryBool):-			
 						Counter=<99,
 						nth0(Counter,ResultList,Pair),
 						nth0(0,Pair,Point1), nth0(1,Pair,Point2),
-						if_then_else(path(Point1,Point2,Path), winner(Jogador,Path), continueplay),
+						if_then_else(path(Point1,Point2,Path), winner(Jogador,Path,VictoryBool), continueplay),
 						NewCounter is Counter+1,
-						search(Jogador,ResultList,NewCounter).
+						search(Jogador,ResultList,NewCounter,VictoryBool).
 
 
 
 agora(Point1,Point2):- assert(edge(Point1,Point2)).
 
-buildEdges(B,C,I,Jogador,Counter,ResultList):- 
+
+buildEdges(B,C,I,Jogador,Counter,ResultList,VictoryBool):-Counter=4950.
+
+buildEdges(B,C,I,Jogador,Counter,ResultList,VictoryBool):- 
 						Counter=<4949,
 						nth0(Counter,ResultList,Pair),
 						nth0(0,Pair,Point1), nth0(1,Pair,Point2),
@@ -370,27 +375,27 @@ buildEdges(B,C,I,Jogador,Counter,ResultList):-
 						nth0(0,Point2,P2x), nth0(1,Point2, P2y), 
 						if_then_else(existsConnection(Jogador,C,I,P1x,P1y,P2x,P2y), agora(Point1,Point2), continueplay),
 						NewCounter is Counter+1,
-						buildEdges(B,C,I,Jogador,NewCounter,ResultList).
+						buildEdges(B,C,I,Jogador,NewCounter,ResultList,VictoryBool).
 												
 		
-findPaths(Jogador):- Jogador==1,
+findPaths(Jogador,VictoryBool):- Jogador==1,
 			blackCoordsTop(List1), blackCoordsBottom(List2),
 			list_pairs(List1,List2, Pairs),
-			if_then_else(current_predicate(edge/2),search(Jogador,Pairs,0),continueplay).
+			if_then_else(current_predicate(edge/2),search(Jogador,Pairs,0,VictoryBool),continueplay).
 			
 			
-findPaths(Jogador):- Jogador==2,
+findPaths(Jogador,VictoryBool):- Jogador==2,
 			whiteCoordsLeft(List1), whiteCoordsRight(List2),
 			list_pairs(List1,List2, Pairs),
-			if_then_else(current_predicate(edge/2),search(Jogador,Pairs,0),continueplay).
+			if_then_else(current_predicate(edge/2),search(Jogador,Pairs,0,VictoryBool),continueplay).
 
 			
 
-victory(B,C,I,Jogador):- 
+victory(B,C,I,Jogador,VictoryBool):- 
 						allCords(ListCoords),
 						findall(L, combination(2,ListCoords,L), ResultList),
-						if_then_else(buildEdges(B,C,I,Jogador,0,ResultList), continueplay, continueplay),
-						if_then_else(findPaths(Jogador), continueplay,continueplay),
+						if_then_else(buildEdges(B,C,I,Jogador,0,ResultList,VictoryBool), continueplay, continueplay),
+						if_then_else(findPaths(Jogador,VictoryBool), continueplay,continueplay),
 						if_then_else(current_predicate(edge/2), retractall(edge(X,Y)), continueplay).
 	
 						
@@ -569,7 +574,9 @@ putPiece(LX,LY,LX2,LY2,Mode,Dif,B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LAST
 								if_then_else(Move==1, NewMove is Move+1, continueplay),
 								if_then_else(Move==1, stroke(LX,LY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), continueplay),
 
-								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
+								victory(R,NewCountingBoard,NewIdentityBoard,Jogador,VictoryBool),
+								
+								nl,nl,nl,write(VictoryBool),nl,nl,
 							
 								if_then_else(Mode=1,
 											stroke(LX,LY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard,2,Counter,1,0,LASTX,LASTY),
@@ -606,7 +613,9 @@ putPiece(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X, Y, P, Jogador, Counter, Move, Bool, LAS
 								if_then_else(Move==1, stroke(LX,LY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 2,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), continueplay),
 
 		
-								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
+								victory(R,NewCountingBoard,NewIdentityBoard,Jogador,VictoryBool),
+								
+								nl,nl,nl,write(VictoryBool),nl,nl,
 		
 								stroke(LX,LY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1, Counter, 1, 0, LASTX,LASTY).
 
@@ -868,6 +877,11 @@ strokeComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I,Jogador,Counter,Move,Bool,LASTX,LAST
 								if_then_else(Dif==1, createRandPos(C,I,Jogador,Move,Bool,LASTX,LASTY,FreePos,Pos,VALX,VALY,0), continueplay),
 								if_then_else(checkBoolAndDIF(Bool,Dif), computerChecksBool(Move,LASTX,LASTY,VALX,VALY,Bool,Pos), continueplay),
 								if_then_else(verifyDif2(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint),continueplay,atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint)),
+								
+								nl,write(Bool),nl,nl,write(Jogador),nl,nl,write(Mode),nl,nl,write(Dif),nl,nl,write(VALX),nl,nl,write(VALY),nl,nl,write(Counter),nl,nl,write(CurrPoint),nl,
+								nl,write(LX),nl,nl,write(LY),nl,nl,write(LX2),nl,nl,write(LY2),nl,
+								
+								
 								if_then_else(verifyDif3(Bool,Jogador,Mode,Dif,VALX,VALY,Counter,CurrPoint),continueplay,atrbL(Jogador,LX,LY,LX2,LY2,CurrPoint)),
 							
 						
@@ -894,7 +908,7 @@ moveAndMode(Move,Mode):- Move==1, Mode==3.
 putPieceComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I, X, Y, P, Jogador, Counter, Move,Bool,LASTX,LASTY):- 
 								Jogador == 1,
 								getPiece(B,X,Y,Elem),
-
+								nl,nl,write('entrei AQUIIIIIIII'),nl,nl,
 	
 								if_then_else(Bool>0, verifyTheBool(B,C,I,Jogador,Counter,Move,Bool,X,Y,LASTX,LASTY), continueplay),
 								if_then_else(crossCut(C,I,X,Y,Jogador,Move,NewBool,NEWLASTX,NEWLASTY), takeActions(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X,Y,Counter,Jogador,Move,NewBool), NewBool is 0),
@@ -914,7 +928,10 @@ putPieceComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I, X, Y, P, Jogador, Counter, Move,B
 								if_then_else(Move==1, stroke(LX,LY,NEWLX2,NEWLY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 1,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), continueplay),
 
 
-								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
+								victory(R,NewCountingBoard,NewIdentityBoard,Jogador,VictoryBool),
+								nl,nl,nl,write('VC:'),write(VictoryBool),nl,nl,
+								
+								if_then_else(is_list(VictoryBool),menu, continueplay),
 
 
 								
@@ -944,7 +961,11 @@ putPieceComputer(LX,LY,LX2,LY2,Mode,Dif,B,C,I,X,Y,P,Jogador,Counter,Move,Bool,LA
 								if_then_else(Move==1, strokeComputer(NEWLX,NEWLY,LX2,LY2,Mode,Dif,R,NewCountingBoard,NewIdentityBoard, 2,Counter,NewMove,NewBool,NEWLASTX,NEWLASTY), continueplay),
 
 		
-								victory(R,NewCountingBoard,NewIdentityBoard,Jogador),
+								victory(R,NewCountingBoard,NewIdentityBoard,Jogador,VictoryBool),
+								
+								nl,nl,nl,write('VC:'),write(VictoryBool),nl,nl,
+								
+								if_then_else(is_list(VictoryBool),menu, continueplay),
 								
 								
 
